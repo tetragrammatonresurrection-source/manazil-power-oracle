@@ -1,0 +1,22 @@
+{
+  "name": "Manazil Power Oracle",
+  "short_name": "Manazil",
+  "description": "Ancient Arabic Lunar Wisdom & Personal Daily Numerology",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#05070a",
+  "theme_color": "#d4af37",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

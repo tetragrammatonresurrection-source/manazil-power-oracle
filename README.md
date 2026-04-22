@@ -3,7 +3,7 @@
 
 ![App Preview](preview.png)
 
-[![Open Oracle](https://shields.io)](https://github.io)
+[![Open Oracle][(https://shields.io)](https://github.io)](https://tetragrammatonresurrection-source.github.io/manazil-power-oracle/)
 [![Language: EN/SL](https://shields.io)](#)
 
 ---
@@ -21,7 +21,7 @@
 
 ### 📲 Installation
 This application is a **PWA** (Progressive Web App). For the best experience, install it on your home screen:
-1. Open the [App Link](https://github.io) in Safari (iOS) or Chrome (Android).
+1. Open the [App Link]([https://github.io](https://tetragrammatonresurrection-source.github.io/manazil-power-oracle/) in Safari (iOS) or Chrome (Android).
 2. Tap **Share** or **Options** and select **"Add to Home Screen"**.
 
 ### 🛠 Technical Excellence
@@ -49,7 +49,7 @@ This application is a **PWA** (Progressive Web App). For the best experience, in
 
 ### 📲 Namestitev
 Aplikacija je zasnovana kot **PWA** (Progressive Web App). Za najboljšo izkušnjo jo namestite na svoj telefon:
-1. Odprite [Orakelj](https://github.io) v brskalniku Safari (iOS) ali Chrome (Android).
+1. Odprite [Orakelj]([https://github.io](https://tetragrammatonresurrection-source.github.io/manazil-power-oracle/) v brskalniku Safari (iOS) ali Chrome (Android).
 2. Izberite gumb **Deli** (Share) in nato **"Dodaj na domovje"** (Add to Home Screen).
 
 ### 🛠 Tehnična dovršenost

@@ -3,7 +3,7 @@
 
 ![App Preview](preview.png)
 
-[![Open Oracle][(https://shields.io)](https://github.io)](https://tetragrammatonresurrection-source.github.io/manazil-power-oracle/)
+[Open Oracle](https://tetragrammatonresurrection-source.github.io/manazil-power-oracle/)
 [![Language: EN/SL](https://shields.io)](#)
 
 ---

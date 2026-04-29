@@ -46,9 +46,8 @@
         .help-box { display: none; text-align: left; font-size: 0.82rem; background: #000; padding: 20px; border-radius: 20px; border: 1px solid var(--gold); line-height: 1.5; color: #fff; overflow-y: auto; max-height: 400px; margin-bottom: 10px; }
         .locked-field { filter: blur(5px); opacity: 0.6; cursor: pointer; }
 
-        /* MISTIČEN MODAL DIZAJN */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(12px); }
-        .premium-card { background: rgba(10, 15, 25, 0.98); border: 1px solid var(--gold); padding: 30px; border-radius: 35px; text-align: center; max-width: 380px; width: 92%; box-shadow: 0 0 50px rgba(0,0,0,1); animation: mFadeUp 0.4s ease; }
+        .premium-card { background: rgba(10, 15, 25, 0.98); border: 1px solid var(--gold); padding: 30px; border-radius: 35px; text-align: center; max-width: 380px; width: 92%; box-shadow: 0 0 50px rgba(0,0,0,1); animation: mFadeUp 0.4s ease; color: white; }
         @keyframes mFadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .qr-wrapper { background: white; padding: 12px; border-radius: 20px; display: inline-block; margin: 15px 0; border: 2px solid var(--gold); }
         .qr-wrapper img { display: block; width: 160px; height: 160px; }
@@ -61,26 +60,50 @@
 <div id="stars"></div>
 <div class="app-container">
     <div class="lang-switch"><button onclick="toggleLang()" id="langBtn" class="lang-btn">ENG</button></div>
-    <header><h1>Manazil al-Qamar</h1><div class="sub-header" id="subH">Arabski lunini dvorci po Ibn Arabiju</div><div id="selected-date">---</div></header>
-    <div class="input-group"><input type="datetime-local" id="dateInput"><button class="update-btn" id="updBtn" onclick="hdlInp()">OSVEŽI</button></div>
-    <div class="input-group"><input type="date" id="birthInput" onchange="saveBirth()" placeholder="Rojstni datum"></div>
-    <div id="wheelBox" class="wheel-container"><svg id="mainWheel" class="wheel-svg" viewBox="0 0 300 300"></svg></div>
+    <header>
+        <h1>Manazil al-Qamar</h1>
+        <div class="sub-header" id="subH">Arabski lunini dvorci po Ibn Arabiju</div>
+        <div id="selected-date">---</div>
+    </header>
+    
+    <div class="input-group">
+        <input type="datetime-local" id="dateInput">
+        <button class="update-btn" id="updBtn" onclick="hdlInp()">OSVEŽI</button>
+    </div>
+    <div class="input-group">
+        <input type="date" id="birthInput" onchange="saveBirth()" placeholder="Rojstni datum">
+    </div>
+    
+    <div id="wheelBox" class="wheel-container">
+        <svg id="mainWheel" class="wheel-svg" viewBox="0 0 300 300"></svg>
+    </div>
+    
     <div class="info-panel" id="infoPanel">
         <div id="mPhase">---</div>
-        <div id="mSigil"></div><div id="pill">---</div>
-        <div id="mName">---</div><div id="mDivine">---</div>
+        <div id="mSigil"></div>
+        <div id="pill" style="display:inline-block; padding:3px 10px; border-radius:10px; font-size:0.65rem; font-weight:bold; color:#fff; margin:5px 0;">---</div>
+        <div id="mName">---</div>
+        <div id="mDivine">---</div>
+        
         <div style="display:flex; justify-content:space-around; margin:15px 0;">
             <div><div class="num-circle" id="dayNum">-</div><div id="lblD" style="font-size:0.6rem;">DAN</div></div>
             <div id="pSec" style="display:none;"><div class="num-circle" id="persNum">-</div><div id="lblP" style="font-size:0.6rem;">TI</div></div>
             <div id="tSec" style="display:none;"><div class="num-circle" id="totalNum">-</div><div id="lblT" style="font-size:0.6rem;">SKUPAJ</div></div>
         </div>
-        <div id="mDesc">---</div><div id="zodAdvice">---</div>
+        
+        <div id="mDesc">---</div>
+        <div id="zodAdvice">---</div>
+        
         <div id="extra">
-            <div id="eB">🧬 TELO: -</div><div id="eR">🪐 VLADAR: -</div>
-            <div id="eA" onclick="checkPremium()">😇 ANGEL: -</div><div id="eE" onclick="checkPremium()">✨ ELEM: -</div>
+            <div id="eB">🧬 TELO: -</div>
+            <div id="eR">🪐 VLADAR: -</div>
+            <div id="eA" onclick="checkPremium()">😇 ANGEL: -</div>
+            <div id="eE" onclick="checkPremium()">✨ ELEM: -</div>
         </div>
     </div>
+    
     <div class="cal" id="calendar"></div>
+    
     <button class="big-btn btn-outline" id="hBtn" onclick="tglH()">POMOČ IN NAVODILA</button>
     <div id="helpBox" class="help-box"></div>
     <button class="big-btn btn-gold" id="dnBtn" onclick="dnApp()">Prenesi aplikacijo</button>
@@ -94,100 +117,101 @@
             <p style="font-size: 0.85rem; color: white;">Vpišite ime za aktivacijo (npr. MATEJ):</p>
             <input type="text" id="userNameInput" class="key-input-field" placeholder="IME" onkeyup="this.value = this.value.toUpperCase()">
             <div class="qr-wrapper">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9z254AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAtKADAAQAAAABAAAAtAAAAAA09is6AAADmElEQVR4Ae3BvW4cMRCG0T9S+v9vL6fI7E6REmYAgV7vOec2zL8p7fV9C9M/P0f0m887N3Z939X1fVfX911d33d1fd/V9X1X1/ddXd93dX3f1fVfX911d33d1fd/vPh/d2HXnxq7vu7q+7+r6vqv++Tmi33zesbHrzo1d33d1fd/V9X1X/fNzRL/5vGNj150bu77v6vq+q+v7rvrn54h+83nHxq47N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd/U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd/V9X1/9Of6Wv+8cG7uuru+7ur7v6vq+q+v7ru7/0v8AsZ0q+mQ49ZgAAAAASUVORK5CYII=" alt="PayPal QR">
-            </div>
-            <p style="font-size: 0.75rem; color: white; opacity: 0.8;">Donirajte 5€+ in v sporočilo pripišite IME.</p>
-            <a href="https://paypal.com" target="_blank" class="paypal-btn" onclick="animateBtn(this)">DONIRAJ PREK PAYPAL</a>
-            <button class="secondary-btn" onclick="showActivationInput()">ŽE IMAM KLJUČ</button>
-        </div>
-        <div id="activationView" style="display: none;">
-            <h2 style="color: var(--gold); margin: 0; font-weight: 300; letter-spacing: 2px;">AKTIVACIJA</h2>
-            <input type="text" id="premiumKeyInput" class="key-input-field" placeholder="KLJUČ">
-            <button class="big-btn btn-gold" onclick="processActivation()">AKTIVIRAJ</button>
-            <p id="activationError" style="color: var(--bad); font-size: 0.8rem; margin-top: 10px;"></p>
-            <button class="secondary-btn" onclick="showDonationView()">NAZAJ</button>
-        </div>
-        <span style="color:var(--neutral); font-size:0.8rem; cursor:pointer; display:block; margin-top:20px; text-decoration:underline;" onclick="closePremiumModal()">ZAPRI OKNO</span>
-    </div>
-</div>
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9z254AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAtKADAAQAAAABAAAAtAAAAAA09is6AAADmElEQVR4Ae3BvW4cMRCG0T9S+v9vL6fI7E6REmYAgV7vOec2zL8p7fV9C9M/P0f0m887N3Z939X1fVfX911d33d1fd/V9X1X1/ddXd93dX3f1fVfX911d33d1fd/vPh/d2HXnxq7vu7q+7+r6vqv++Tmi33zesbHrzo1d33d1fd/V9X1X/fNzRL/5vGNj150bu77v6vq+q+v7rvrn54h+83nHxq47N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV
+// ORIGINALNE FUNKCIJE ZA IZRAČUN IN ZVOK
+async function playW(){try{if(!aCtx)aCtx=new(window.AudioContext||window.webkitAudioContext)();if(aCtx.state==='suspended')await aCtx.resume();const o=aCtx.createOscillator(),g=aCtx.createGain();o.type='triangle';o.frequency.setValueAtTime(150,aCtx.currentTime);o.frequency.exponentialRampToValueAtTime(40,aCtx.currentTime+0.7);g.gain.setValueAtTime(0.15,aCtx.currentTime);g.gain.linearRampToValueAtTime(0,aCtx.currentTime+0.7);o.connect(g);g.connect(aCtx.destination);o.start();o.stop(aCtx.currentTime+0.7);}catch(e){}}
 
-<script>
-let lang = 'sl', aCtx = null;
-let isPremium = localStorage.getItem('manazil_premium') === 'true';
+function getN(s){let n=s.toString().replace(/\D/g,'').split('').reduce((a,b)=>a+parseInt(b),0);while(n>9)n=n.toString().split('').reduce((a,b)=>a+parseInt(b),0);return n||1;}
 
-const i18n = {
-    sl: { 
-        zod: ["Oven","Bik","Dvojčka","Rak","Lev","Devica","Tehtnica","Škorpijon","Strelec","Kozorog","Vodnik","Ribi"],
-        bod: ["Glava","Grlo","Pljuča","Prsi","Srce","Trebuh","Ledvica","Reprodukcija","Stegna","Kolenih","Gležnji","Stopala"],
-        rul: ["Sonce","Luna","Mars","Merkur","Jupiter","Venera","Saturn"],
-        ph: ["Mlaj","Rastoči srp","Prvi krajec","Rastoča luna","Ščip (Polna luna)","Upadajoča luna","Zadnji krajec","Upadajoči srp"],
-        elm: { "Fire": "Ogenj", "Earth": "Zemlja", "Air": "Zrak", "Water": "Voda" },
-        adv: ["Bodi drzen.","Fokus na stabilnost.","Komuniciraj.","Posveti se domu.","Bodi ustvarjalen.","Uredi obveznosti.","Išči ravnovesje.","Poglej globoko.","Raziskuj.","Postavi cilje.","Bodi unikaten.","Prisluhni sanjam."],
-        ui: { sub:"Arabski lunini dvorci po Ibn Arabiju", up:"OSVEŽI", b:"Rojstni datum", d:"DAN", p:"TI", t:"SKUPAJ", h:"POMOČ IN NAVODILA", dn:"Prenesi aplikacijo", bod:"🧬 TELO", rul:"🪐 VLADAR", ang:"😇 ANGEL", elm:"✨ ELEM" },
-        help: `<b>VODNIK:</b><br><br>🌙 <b>MANAZIL:</b> Zelena (Dobro), Zlata (Nevtralno), Rdeča (Previdno).<br><br><button onclick="checkPremium()" style="width:100%;padding:12px;background:var(--gold);border:none;border-radius:15px;font-weight:bold;cursor:pointer;margin-top:10px;">✨ AKTIVIRAJ PREMIUM</button>`
-    },
-    en: {
-        zod: ["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"],
-        bod: ["Head","Throat","Lungs","Chest","Heart","Abdomen","Kidneys","Repro","Thighs","Knees","Ankles","Feet"],
-        rul: ["Sun","Moon","Mars","Mercury","Jupiter","Venus","Saturn"],
-        ph: ["New Moon","Waxing Crescent","First Quarter","Waxing Gibbous","Full Moon","Waning Gibbous","Last Quarter","Waning Crescent"],
-        elm: { "Fire": "Fire", "Earth": "Earth", "Air": "Air", "Water": "Water" },
-        adv: ["Be bold.","Focus on stability.","Communicate.","Home focus.","Be creative.","Organize.","Seek balance.","Look deeper.","Explore.","Set goals.","Be unique.","Trust intuition."],
-        ui: { sub:"Arabic Lunar Mansions by Ibn Arabi", up:"UPDATE", b:"Birth Date", d:"DAY", p:"YOU", t:"TOTAL", h:"HELP & MANUAL", dn:"Download App", bod:"🧬 BODY", rul:"🪐 RULER", ang:"😇 ANGEL", elm:"✨ ELEM" },
-        help: `<b>GUIDE:</b><br><br>🌙 <b>MANAZIL:</b> Green (Good), Gold (Neutral), Red (Caution).<br><br><button onclick="checkPremium()" style="width:100%;padding:12px;background:var(--gold);border:none;border-radius:15px;font-weight:bold;cursor:pointer;margin-top:10px;">✨ AKTIVIRAJ PREMIUM</button>`
-    }
-};
+function getMData(d){const jd=(d.getTime()/86400000)+2440587.5,t=(jd-2451545)/36525;let l=(218.316+481267.881*t)%360;l+=6.289*Math.sin((134.963+477198.867*t)*Math.PI/180);const age=((jd-2451550.1)%29.53059+29.53059)%29.53059,p=Math.floor((age/29.53059)*8)%8,i=["🌑","🌒","🌓","🌔","🌕","🌖","🌗","🌘"];return{l:(l+360)%360,ph:p,icon:i[p]};}
 
-const mansions = [
-    {sig:"𐩿", n:"Al-Sharatain", div:"The Initiating", ang:"Geniel", el:"Fire", ty:"good", d:{sl:"Novi začetki in energija.", en:"New starts."}},
-    {sig:"𐩮", n:"Al-Butain", div:"The Most Generous", ang:"Enediel", el:"Earth", ty:"neutral", d:{sl:"Skrite stvari in bogastvo.", en:"Hidden things."}},
-    {sig:"𐩤", n:"Al-Thurayya", div:"The Wise One", ang:"Amixiel", el:"Fire", ty:"good", d:{sl:"Sreča v poslu in uspehu.", en:"Luck in business."}},
-    {sig:"𐩣", n:"Al-Debaran", div:"The Sustainer", ang:"Azariel", el:"Earth", ty:"bad", d:{sl:"Pazi na prepire.", en:"Watch for quarrels."}},
-    {sig:"𐩠", n:"Al-Haqa", div:"The Evolver", ang:"Gabriel", el:"Air", ty:"good", d:{sl:"Učenje in modrost.", en:"Wisdom."}},
-    {sig:"𐩥", n:"Al-Hana", div:"The Guardian", ang:"Dirachiel", el:"Air", ty:"good", d:{sl:"Ljubezen in mir.", en:"Love and peace."}},
-    {sig:"𐩷", n:"Al-Dhira", div:"The Reckoner", ang:"Seheliel", el:"Water", ty:"good", d:{sl:"Zaščita doma.", en:"Protection."}},
-    {sig:"𐩺", n:"Al-Nathra", div:"The Subtle", ang:"Amnediel", el:"Water", ty:"good", d:{sl:"Moč intuici.", en:"Intuition."}},
-    {sig:"𐩰", n:"Al-Tarf", div:"The Mighty", ang:"Barbiel", el:"Fire", ty:"bad", d:{sl:"Pazi na prevare.", en:"Watch for lies."}},
-    {sig:"𐩯", n:"Al-Jabhah", div:"The All-Hearing", ang:"Ardifiel", el:"Fire", ty:"good", d:{sl:"Ugled in čast.", en:"Honor."}},
-    {sig:"𐩱", n:"Al-Zubrah", div:"The All-Aware", ang:"Zariel", el:"Fire", ty:"good", d:{sl:"Dobiček s trudom.", en:"Profit."}},
-    {sig:"𐩨", n:"Al-Sarfah", div:"The Forbearing", ang:"Alariel", el:"Earth", ty:"bad", d:{sl:"Počitek in samota.", en:"Solitude."}},
-    {sig:"𐩴", n:"Al-Awwa", div:"The Sublime", ang:"Hagiel", el:"Earth", ty:"good", d:{sl:"Umetnost in lepota.", en:"Art."}},
-    {sig:"𐩵", n:"Al-Simak", div:"The Protecting", ang:"Ataliel", el:"Earth", ty:"neutral", d:{sl:"Čiščenje energije.", en:"Clearing."}},
-    {sig:"𐩼", n:"Al-Ghafr", div:"The Strong", ang:"Iraziel", el:"Air", ty:"good", d:{sl:"Prijateljstva.", en:"Friendships."}},
-    {sig:"𐩹", n:"Al-Zubana", div:"The Subtle One", ang:"Ariel", el:"Air", ty:"bad", d:{sl:"Tehtanje odločitev.", en:"Decisions."}},
-    {sig:"𐩮", n:"Al-Iklil", div:"The Provider", ang:"Tagriel", el:"Water", ty:"good", d:{sl:"Premagovanje ovir.", en:"Overcoming."}},
-    {sig:"𐩤", n:"Al-Kalb", div:"The Guardian", ang:"Alheniel", el:"Water", ty:"bad", d:{sl:"Denarna previdnost.", en:"Money caution."}},
-    {sig:"𐩣", n:"Al-Shaula", div:"The Enricher", ang:"Amnixiel", el:"Fire", ty:"bad", d:{sl:"Opustitev starega.", en:"Letting go."}},
-    {sig:"𐩠", n:"Al-Na'am", div:"The Opener", ang:"Kyriel", el:"Fire", ty:"good", d:{sl:"Uspeh in darila.", en:"Success."}},
-    {sig:"𐩥", n:"Al-Baldah", div:"The King", ang:"Bethnael", el:"Earth", ty:"neutral", d:{sl:"Temelji.", en:"Foundations."}},
-    {sig:"𐩷", n:"S. al-Dhabih", div:"The Capable", ang:"Geliel", el:"Earth", ty:"bad", d:{sl:"Sprememba.", en:"Change."}},
-    {sig:"𐩺", n:"S. al-Bula", div:"The Forgiver", ang:"Requiel", el:"Air", ty:"neutral", d:{sl:"Zdravje.", en:"Health."}},
-    {sig:"𐩰", n:"S. al-Su'ud", div:"The Grateful", ang:"Abrinael", el:"Air", ty:"good", d:{sl:"Velika sreča.", en:"Luck."}},
-    {sig:"𐩯", n:"S. al-Akhbiya", div:"The Self-Sufficient", ang:"Aziel", el:"Air", ty:"bad", d:{sl:"Skrivnosti.", en:"Secrets."}},
-    {sig:"𐩱", n:"A. al-Awwal", div:"The Powerful", ang:"Tagriel", el:"Water", ty:"good", d:{sl:"Mir.", en:"Peace."}},
-    {sig:"𐩨", n:"A. al-Thani", div:"The Giver", ang:"Abriel", el:"Water", ty:"neutral", d:{sl:"Družina.", en:"Family."}},
-    {sig:"𐩴", n:"Al-Risha", div:"The First", ang:"Amnixiel", el:"Water", ty:"good", d:{sl:"Konec cikla.", en:"End."}}
-];
+// POSODABLJANJE VMESNIKA
+function update(d){
+    const p=document.getElementById('infoPanel');
+    if(!p) return;
+    p.style.opacity=0;
+    setTimeout(()=>{
+        const off=d.getTimezoneOffset()*60000;
+        document.getElementById('dateInput').value=new Date(d-off).toISOString().slice(0,16);
+        const da=getMData(d),mi=Math.floor(da.l/(360/28))%28,m=mansions[mi];
+        document.getElementById('wheelBox').className='wheel-container glow-'+m.ty;
+        if(m.ty==='bad')playW();
+        document.getElementById('moonPointer').setAttribute('transform',`rotate(${da.l},150,150)`);
+        document.getElementById('selected-date').innerText=d.toLocaleDateString(lang==='sl'?'sl-SI':'en-US',{weekday:'long',day:'numeric',month:'long'});
+        document.getElementById('mPhase').innerText=`${da.icon} ${i18n[lang].ph[da.ph]}`;
+        document.getElementById('mSigil').innerText=m.sig;
+        document.getElementById('mName').innerText=(mi+1)+". "+m.n;
+        document.getElementById('mDivine').innerText=m.div;
+        document.getElementById('mDesc').innerText=m.d[lang];
+        const zi=Math.floor(da.l/30);
+        document.getElementById('zodAdvice').innerText=(lang==='sl'?`Luna v ${i18n[lang].zod[zi]}: ${i18n[lang].adv[zi]}`:`Moon in ${i18n[lang].zod[zi]}: ${i18n[lang].adv[zi]}`);
+        
+        const pill = document.getElementById('pill');
+        pill.innerText=m.ty.toUpperCase();
+        pill.className='bg-'+m.ty;
+        
+        const ui=i18n[lang].ui;
+        document.getElementById('eB').innerText=`${ui.bod}: ${i18n[lang].bod[zi]}`;
+        document.getElementById('eR').innerText=`${ui.rul}: ${i18n[lang].rul[d.getDay()]}`;
+        
+        // PREMIUM LOGIKA ZA PRIKAZ POLJ
+        if(isPremium){
+            document.getElementById('eA').innerText=`${ui.ang}: ${m.ang}`;
+            document.getElementById('eE').innerText=`${ui.elm}: ${lang==='sl'?i18n.sl.elm[m.el]:m.el}`;
+            document.getElementById('eA').classList.remove('locked-field');
+            document.getElementById('eE').classList.remove('locked-field');
+        }else{
+            document.getElementById('eA').innerText=`${ui.ang}: 🔒 PREMIUM`;
+            document.getElementById('eE').innerText=`${ui.elm}: 🔒 PREMIUM`;
+            document.getElementById('eA').classList.add('locked-field');
+            document.getElementById('eE').classList.add('locked-field');
+        }
 
-function checkPremium() { if (!isPremium) document.getElementById('premiumModal').style.display = 'flex'; }
-function closePremiumModal() { document.getElementById('premiumModal').style.display = 'none'; }
-function showActivationInput() { document.getElementById('donationView').style.display = 'none'; document.getElementById('activationView').style.display = 'block'; }
-function showDonationView() { document.getElementById('donationView').style.display = 'block'; document.getElementById('activationView').style.display = 'none'; }
-function closeOnOutsideClick(e) { if (e.target.id === 'premiumModal') closePremiumModal(); }
-
-function animateBtn(btn) {
-    btn.style.transform = "scale(0.95)";
-    btn.innerText = lang === 'sl' ? "ODPIRANJE..." : "OPENING...";
-    setTimeout(() => {
-        btn.style.transform = "scale(1)";
-        btn.innerText = lang === 'sl' ? "DONIRAJ PREK PAYPAL" : "DONATE VIA PAYPAL";
-    }, 2000);
+        const dN=getN(d.getDate().toString()+(d.getMonth()+1).toString()+d.getFullYear().toString());
+        document.getElementById('dayNum').innerText=dN;
+        const b=document.getElementById('birthInput').value;
+        if(b){
+            document.getElementById('pSec').style.display='block';
+            document.getElementById('tSec').style.display='block';
+            if(isPremium){
+                const pN=getN(b.replace(/-/g,''));
+                document.getElementById('persNum').innerText=pN;
+                let tot=dN+pN;
+                while(tot>9)tot=tot.toString().split('').reduce((x,y)=>x+parseInt(y),0);
+                document.getElementById('totalNum').innerText=tot;
+                document.getElementById('persNum').style.filter="none";
+                document.getElementById('totalNum').style.filter="none";
+            } else {
+                document.getElementById('persNum').innerText="🔒";
+                document.getElementById('totalNum').innerText="🔒";
+                document.getElementById('persNum').style.filter="blur(3px)";
+                document.getElementById('totalNum').style.filter="blur(3px)";
+            }
+        }
+        renderCal(d);
+        p.style.opacity=1;
+    },200);
 }
 
-function generateKey(n) {
-    let h = 0; n = n.toUpperCase().trim();
-    for (let i = 0; i < n.length; i++) h += n.charCodeAt(i);
-    return (h * 7
+function renderCal(sd){const c=document.getElementById('calendar');c.innerHTML='';for(let i=0;i<7;i++){let d=new Date(sd);d.setDate(sd.getDate()+i);const da=getMData(d),mi=Math.floor(da.l/(360/28))%28,m=mansions[mi];const it=document.createElement('div');it.className=`cal-item bg-${m.ty}`;it.innerHTML=`<div style="font-size:0.65rem;">${d.getDate()}.${d.getMonth()+1}.</div><div style="font-size:1.1rem;margin:2px 0;">${m.sig}</div><div style="font-size:0.55rem;font-weight:bold;">${m.n}</div>`;it.onclick=()=>update(new Date(d));c.appendChild(it);}}
+function saveBirth(){localStorage.setItem('manazil_birth',document.getElementById('birthInput').value);hdlInp();}
+function hdlInp(){update(new Date(document.getElementById('dateInput').value||new Date()));}
+function toggleLang(){lang=lang==='sl'?'en':'sl';const ui=i18n[lang].ui;document.getElementById('langBtn').innerText=lang==='sl'?'ENG':'SLO';document.getElementById('subH').innerText=ui.sub;document.getElementById('updBtn').innerText=ui.up;document.getElementById('birthInput').placeholder=ui.b;document.getElementById('lblD').innerText=ui.d;document.getElementById('lblP').innerText=ui.p;document.getElementById('lblT').innerText=ui.t;document.getElementById('hBtn').innerText=ui.h;document.getElementById('dnBtn').innerText=ui.dn;const hb=document.getElementById('helpBox');if(hb.style.display==='block')hb.innerHTML=i18n[lang].help;draw();hdlInp();}
+function tglH(){const b=document.getElementById('helpBox');b.style.display=b.style.display==='block'?'none':'block';b.innerHTML=i18n[lang].help;}
+function dnApp(){const b=new Blob([document.documentElement.outerHTML],{type:'text/html'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='Manazil.html';a.click();}
+
+function draw(){const s=document.getElementById('mainWheel');let h='';for(let i=0;i<360;i+=2){const r=i%30===0?115:130;h+=`<line x1="${150+r*Math.cos((i-90)*Math.PI/180)}" y1="${150+r*Math.sin((i-90)*Math.PI/180)}" x2="${150+145*Math.cos((i-90)*Math.PI/180)}" y2="${150+145*Math.sin((i-90)*Math.PI/180)}" stroke="white" stroke-width="${i%30===0?2:1}" style="opacity:0.3"/>`;}i18n[lang].zod.forEach((z,i)=>{const a=i*30+15,x=150+95*Math.cos((a-90)*Math.PI/180),y=150+95*Math.sin((a-90)*Math.PI/180);h+=`<text x="${x}" y="${y}" class="zodiac-label" text-anchor="middle" transform="rotate(${a},${x},${y})">${z.substring(0,3).toUpperCase()}</text>`;});for(let i=0;i<28;i++){const sA=i*(360/28)-90,eA=(i+1)*(360/28)-90;h+=`<path d="M ${150+85*Math.cos(sA*Math.PI/180)} ${150+85*Math.sin(sA*Math.PI/180)} A 85 85 0 0 1 ${150+85*Math.cos(eA*Math.PI/180)} ${150+85*Math.sin(eA*Math.PI/180)}" style="stroke:var(--${mansions[i].ty});fill:none;stroke-width:10;opacity:0.8"/>`;}h+=`<g id="moonPointer"><circle cx="150" cy="40" r="10" fill="white" filter="drop-shadow(0 0 8px white)"/></g>`;s.innerHTML=h;}
+
+window.onload=()=>{
+    draw();
+    const sav=localStorage.getItem('manazil_birth');
+    if(sav)document.getElementById('birthInput').value=sav;
+    update(new Date());
+    const sc=document.getElementById('stars');
+    for(let i=0;i<60;i++){
+        const st=document.createElement('div');st.className='star';st.style.left=Math.random()*100+'%';st.style.top=Math.random()*100+'%';st.style.setProperty('--t',Math.random()*3+2+'s');sc.appendChild(st);
+    }
+};
 </script>
 </body>
 </html>

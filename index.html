@@ -2,252 +2,160 @@
 <html lang="sl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manazil al-Qamar | Power Oracle</title>
     <style>
-        :root { --gold: #d4af37; --bg: #05070a; --card: rgba(10, 15, 25, 0.85); --good: #2ea043; --bad: #da3633; --neutral: #8b949e; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: #e0e6ed; margin: 0; padding: 15px; display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden; }
+        :root { --gold: #d4af37; --bg: #05070a; --card: rgba(10, 15, 25, 0.85); --good: #2ea043; --bad: #da3633; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: #e0e6ed; margin: 0; padding: 15px; display: flex; justify-content: center; min-height: 100vh; }
         #stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at center, #0a0f1a 0%, #05070a 100%); }
-        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: twinkle var(--t) infinite; }
-        @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
-        .app-container { max-width: 500px; width: 100%; background: var(--card); backdrop-filter: blur(20px); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 35px; padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); z-index: 1; }
-        h1 { font-weight: 300; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin: 0; font-size: 1.5rem; text-align:center; }
-        .sub-header { font-size: 0.75rem; color: var(--gold); opacity: 0.8; margin-bottom: 10px; text-align:center; }
-        .wheel-container { position: relative; width: 240px; height: 240px; margin: 0 auto 15px; border-radius: 50%; transition: box-shadow 0.6s ease; }
+        .app-container { max-width: 500px; width: 100%; background: var(--card); backdrop-filter: blur(20px); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 35px; padding: 20px; box-shadow: 0 20px 50px #000; z-index: 1; }
+        h1, .sub-header { text-align: center; color: var(--gold); text-transform: uppercase; margin: 0; }
+        .wheel-container { position: relative; width: 240px; height: 240px; margin: 15px auto; border-radius: 50%; }
         .glow-good { box-shadow: 0 0 35px var(--good); } .glow-bad { box-shadow: 0 0 35px var(--bad); } .glow-neutral { box-shadow: 0 0 35px var(--gold); }
-        .input-group { display: flex; gap: 8px; margin-bottom: 10px; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); }
-        input { flex: 2; background: transparent; border: none; color: white; outline: none; color-scheme: dark; }
-        .update-btn { background: var(--gold); border: none; padding: 8px 12px; border-radius: 10px; font-weight: bold; cursor: pointer; color: #000; }
+        .input-group { display: flex; gap: 8px; margin-bottom: 10px; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 15px; }
+        input { flex: 2; background: transparent; border: none; color: white; outline: none; }
         .info-panel { text-align: center; padding: 15px; border-radius: 25px; background: rgba(0,0,0,0.5); border: 1px solid rgba(212, 175, 55, 0.15); margin-bottom: 15px; }
-        #mSigil { font-size: 3.5rem; color: var(--gold); line-height: 1; filter: drop-shadow(0 0 8px var(--gold)); }
-        .num-circle { width: 42px; height: 42px; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: bold; color: var(--gold); margin: 0 auto 5px; }
-        .cal { display: flex; gap: 8px; overflow-x: auto; padding: 10px 0; scrollbar-width: none; }
-        .cal-item { min-width: 100px; padding: 10px; border-radius: 15px; text-align: center; flex-shrink: 0; cursor: pointer; color: white; border: 2px solid transparent; }
-        .bg-good { background: rgba(46, 160, 67, 0.4) !important; border-color: var(--good); }
-        .bg-bad { background: rgba(218, 54, 51, 0.4) !important; border-color: var(--bad); }
-        .bg-neutral { background: rgba(212, 175, 55, 0.2) !important; border-color: var(--gold); }
-        .big-btn { width: 100%; padding: 14px; border-radius: 15px; font-weight: bold; text-transform: uppercase; cursor: pointer; margin-top: 8px; border:none; }
-        .btn-gold { background: var(--gold); color: #000; }
-        .btn-outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(12px); }
-        .premium-card { background: rgba(10, 15, 25, 0.98); border: 1px solid var(--gold); padding: 30px; border-radius: 35px; text-align: center; max-width: 380px; width: 92%; color: white; }
-        .qr-wrapper { background: white; padding: 12px; border-radius: 20px; display: inline-block; margin: 15px 0; }
-        .qr-wrapper img { display: block; width: 160px; height: 160px; }
-        .paypal-btn { background: #0070ba; color: white !important; text-decoration: none; padding: 14px; border-radius: 15px; width: 100%; display: block; font-weight: bold; box-sizing: border-box; margin-top: 10px; }
+        .num-circle { width: 42px; height: 42px; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 auto 5px; }
+        .cal { display: flex; gap: 8px; overflow-x: auto; padding: 10px 0; }
+        .cal-item { min-width: 90px; padding: 10px; border-radius: 15px; text-align: center; border: 2px solid transparent; color: white; cursor: pointer; }
+        .big-btn { width: 100%; padding: 14px; border-radius: 15px; font-weight: bold; cursor: pointer; margin-top: 8px; border: none; background: var(--gold); color: #000; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); display: none; justify-content: center; align-items: center; z-index: 1000; }
+        .premium-card { background: #0a0f1a; border: 1px solid var(--gold); padding: 30px; border-radius: 35px; text-align: center; max-width: 350px; }
+        .qr-wrapper { background: white; padding: 10px; border-radius: 15px; margin: 15px 0; display: inline-block; }
+        .paypal-btn { background: #0070ba; color: white; text-decoration: none; padding: 12px; border-radius: 12px; display: block; font-weight: bold; margin-top: 10px; }
+        .locked-field { filter: blur(4px); opacity: 0.5; cursor: pointer; }
     </style>
 </head>
 <body>
 <div id="stars"></div>
 <div class="app-container">
-    <h1>Manazil al-Qamar</h1>
-    <div class="sub-header" id="subH">Arabski lunini dvorci</div>
-    <div id="selected-date" style="text-align:center">---</div>
-    <div class="input-group"><input type="datetime-local" id="dateInput"><button class="update-btn" onclick="hdlInp()">OSVEŽI</button></div>
-    <div class="input-group"><input type="date" id="birthInput" onchange="saveBirth()"></div>
-    <div id="wheelBox" class="wheel-container"><svg id="mainWheel" viewBox="0 0 300 300" style="width:100%; height:100%"></svg></div>
+    <h1>Manazil Oracle</h1>
+    <div id="selected-date" style="text-align:center; color:var(--gold)">---</div>
+    <div class="input-group"><input type="datetime-local" id="dateInput"><button class="big-btn" style="width:auto; margin:0" onclick="hdlInp()">OK</button></div>
+    <div id="wheelBox" class="wheel-container"><svg id="mainWheel" viewBox="0 0 300 300" style="width:100%"></svg></div>
     <div class="info-panel">
-        <div id="mPhase">---</div>
-        <div id="mSigil"></div>
-        <div id="mName">---</div>
-        <div style="display:flex; justify-content:space-around; margin:15px 0;">
-            <div><div class="num-circle" id="dayNum">-</div><div>DAN</div></div>
-            <div id="pSec" style="display:none;"><div class="num-circle" id="persNum">-</div><div>TI</div></div>
+        <div id="mSigil" style="font-size:3rem"></div>
+        <div id="mName" style="font-weight:bold">---</div>
+        <div style="display:flex; justify-content:space-around; margin:10px 0">
+            <div><div class="num-circle" id="dayNum">-</div><small>DAN</small></div>
+            <div id="pSec" style="display:none"><div class="num-circle" id="persNum">-</div><small>TI</small></div>
         </div>
-        <div id="mDesc">---</div>
-        <div id="extra" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; cursor:pointer;" onclick="checkPremium()">
+        <div id="mDesc" style="font-size:0.9rem; margin:10px 0">---</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:0.8rem; color:var(--gold)" onclick="checkPremium()">
             <div id="eA">😇 ANGEL: -</div><div id="eE">✨ ELEM: -</div>
         </div>
     </div>
     <div class="cal" id="calendar"></div>
-    <button class="big-btn btn-gold" onclick="checkPremium()">AKTIVIRAJ PREMIUM</button>
+    <button class="big-btn" onclick="checkPremium()">AKTIVIRAJ PREMIUM</button>
 </div>
 
 <div id="premiumModal" class="modal-overlay" onclick="if(event.target==this)this.style.display='none'">
     <div class="premium-card">
         <h2 style="color:var(--gold)">PREMIUM ODKLEP</h2>
-        <input type="text" id="userNameInput" placeholder="IME (npr. MATEJ)" style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--gold); background:none; color:white; text-align:center">
-        <div class="qr-wrapper"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9z254AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAtKADAAQAAAABAAAAtAAAAAA09is6AAADmElEQVR4Ae3BvW4cMRCG0T9S+v9vL6fI7E6REmYAgV7vOec2zL8p7fV9C9M/P0f0m887N3Z939X1fVfX911d33d1fd/V9X1X1/ddXd93dX3f1fVfX911d33d1fd/vPh/d2HXnxq7vu7q+7+r6vqv++Tmi33zesbHrzo1d33d1fd/V9X1X/fNzRL/5vGNj150bu77v6vq+q+v7rvrn54h+83nHxq47N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9V/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9V/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9V/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88R/ebzjo1dd27s+r6r6/uuru+76p+fI/rN5x0bu+7c2PV9V9f3XV3fd9U/P0f0m887N3Z939X1fVfX9131z88
-const i18n = {
-    sl: { 
-        zod: ["Oven","Bik","Dvojčka","Rak","Lev","Devica","Tehtnica","Škorpijon","Strelec","Kozorog","Vodnik","Ribi"],
-        bod: ["Glava","Grlo","Pljuča","Prsi","Srce","Trebuh","Ledvica","Reprodukcija","Stegna","Kolenih","Gležnji","Stopala"],
-        rul: ["Sonce","Luna","Mars","Merkur","Jupiter","Venera","Saturn"],
-        ph: ["Mlaj","Rastoči srp","Prvi krajec","Rastoča luna","Ščip (Polna luna)","Upadajoča luna","Zadnji krajec","Upadajoči srp"],
-        elm: { "Fire": "Ogenj", "Earth": "Zemlja", "Air": "Zrak", "Water": "Voda" },
-        adv: ["Bodi drzen.","Fokus na stabilnost.","Komuniciraj.","Posveti se domu.","Bodi ustvarjalen.","Uredi obveznosti.","Išči ravnovesje.","Poglej globoko.","Raziskuj.","Postavi cilje.","Bodi unikaten.","Prisluhni sanjam."],
-        ui: { sub:"Arabski lunini dvorci po Ibn Arabiju", up:"OSVEŽI", b:"Rojstni datum", d:"DAN", p:"TI", t:"SKUPAJ", h:"POMOČ IN NAVODILA", dn:"Prenesi aplikacijo", bod:"🧬 TELO", rul:"🪐 VLADAR", ang:"😇 ANGEL", elm:"✨ ELEM" },
-        help: `<b>VODNIK:</b><br><br>🌙 <b>MANAZIL:</b> Zelena (Dobro), Zlata (Nevtralno), Rdeča (Previdno).<br><br><button onclick="checkPremium()" style="width:100%;padding:12px;background:var(--gold);border:none;border-radius:15px;font-weight:bold;cursor:pointer;margin-top:10px;">✨ AKTIVIRAJ PREMIUM</button>`
-    },
-    en: {
-        zod: ["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"],
-        bod: ["Head","Throat","Lungs","Chest","Heart","Abdomen","Kidneys","Repro","Thighs","Knees","Ankles","Feet"],
-        rul: ["Sun","Moon","Mars","Mercury","Jupiter","Venus","Saturn"],
-        ph: ["New Moon","Waxing Crescent","First Quarter","Waxing Gibbous","Full Moon","Waning Gibbous","Last Quarter","Waning Crescent"],
-        elm: { "Fire": "Fire", "Earth": "Earth", "Air": "Air", "Water": "Water" },
-        adv: ["Be bold.","Focus on stability.","Communicate.","Home focus.","Be creative.","Organize.","Seek balance.","Look deeper.","Explore.","Set goals.","Be unique.","Trust intuition."],
-        ui: { sub:"Arabic Lunar Mansions by Ibn Arabi", up:"UPDATE", b:"Birth Date", d:"DAY", p:"YOU", t:"TOTAL", h:"HELP & MANUAL", dn:"Download App", bod:"🧬 BODY", rul:"🪐 RULER", ang:"😇 ANGEL", elm:"✨ ELEM" },
-        help: `<b>GUIDE:</b><br><br>🌙 <b>MANAZIL:</b> Green (Good), Gold (Neutral), Red (Caution).<br><br><button onclick="checkPremium()" style="width:100%;padding:12px;background:var(--gold);border:none;border-radius:15px;font-weight:bold;cursor:pointer;margin-top:10px;">✨ AKTIVIRAJ PREMIUM</button>`
-    }
-};
+        <input type="text" id="userNameInput" placeholder="IME (npr. MATEJ)" style="width:100%; padding:12px; background:#000; border:1px solid var(--gold); color:white; text-align:center; border-radius:10px">
+        <div class="qr-wrapper"><img src="https://qrserver.com" width="150" height="150" alt="PayPal QR"></div>
+        <p style="font-size:0.8rem">Doniraj 5€+ in v sporočilo pripiši svoje IME.</p>
+        <a href="https://paypal.me" target="_blank" class="paypal-btn">DONIRAJ PREK PAYPAL</a>
+        <button class="big-btn" style="background:none; border:1px solid var(--gold); color:var(--gold)" onclick="processActivation()">VNESI KLJUČ</button>
+    </div>
+</div>
 
+<script>
+let isPremium = localStorage.getItem('manazil_premium') === 'true';
 const mansions = [
-    {sig:"𐩿", n:"Al-Sharatain", div:"The Initiating", ang:"Geniel", el:"Fire", ty:"good", d:{sl:"Novi začetki in energija.", en:"New starts."}},
-    {sig:"𐩮", n:"Al-Butain", div:"The Most Generous", ang:"Enediel", el:"Earth", ty:"neutral", d:{sl:"Skrite stvari in bogastvo.", en:"Hidden things."}},
-    {sig:"𐩤", n:"Al-Thurayya", div:"The Wise One", ang:"Amixiel", el:"Fire", ty:"good", d:{sl:"Sreča v poslu in uspehu.", en:"Luck in business."}},
-    {sig:"𐩣", n:"Al-Debaran", div:"The Sustainer", ang:"Azariel", el:"Earth", ty:"bad", d:{sl:"Pazi na prepire.", en:"Watch for quarrels."}},
-    {sig:"𐩠", n:"Al-Haqa", div:"The Evolver", ang:"Gabriel", el:"Air", ty:"good", d:{sl:"Učenje in modrost.", en:"Wisdom."}},
-    {sig:"𐩥", n:"Al-Hana", div:"The Guardian", ang:"Dirachiel", el:"Air", ty:"good", d:{sl:"Ljubezen in mir.", en:"Love and peace."}},
-    {sig:"𐩷", n:"Al-Dhira", div:"The Reckoner", ang:"Seheliel", el:"Water", ty:"good", d:{sl:"Zaščita doma.", en:"Protection."}},
-    {sig:"𐩺", n:"Al-Nathra", div:"The Subtle", ang:"Amnediel", el:"Water", ty:"good", d:{sl:"Moč intuici.", en:"Intuition."}},
-    {sig:"𐩰", n:"Al-Tarf", div:"The Mighty", ang:"Barbiel", el:"Fire", ty:"bad", d:{sl:"Pazi na prevare.", en:"Watch for lies."}},
-    {sig:"𐩯", n:"Al-Jabhah", div:"The All-Hearing", ang:"Ardifiel", el:"Fire", ty:"good", d:{sl:"Ugled in čast.", en:"Honor."}},
-    {sig:"𐩱", n:"Al-Zubrah", div:"The All-Aware", ang:"Zariel", el:"Fire", ty:"good", d:{sl:"Dobiček s trudom.", en:"Profit."}},
-    {sig:"𐩨", n:"Al-Sarfah", div:"The Forbearing", ang:"Alariel", el:"Earth", ty:"bad", d:{sl:"Počitek in samota.", en:"Solitude."}},
-    {sig:"𐩴", n:"Al-Awwa", div:"The Sublime", ang:"Hagiel", el:"Earth", ty:"good", d:{sl:"Umetnost in lepota.", en:"Art."}},
-    {sig:"𐩵", n:"Al-Simak", div:"The Protecting", ang:"Ataliel", el:"Earth", ty:"neutral", d:{sl:"Čiščenje energije.", en:"Clearing."}},
-    {sig:"𐩼", n:"Al-Ghafr", div:"The Strong", ang:"Iraziel", el:"Air", ty:"good", d:{sl:"Prijateljstva.", en:"Friendships."}},
-    {sig:"𐩹", n:"Al-Zubana", div:"The Subtle One", ang:"Ariel", el:"Air", ty:"bad", d:{sl:"Tehtanje odločitev.", en:"Decisions."}},
-    {sig:"𐩮", n:"Al-Iklil", div:"The Provider", ang:"Tagriel", el:"Water", ty:"good", d:{sl:"Premagovanje ovir.", en:"Overcoming."}},
-    {sig:"𐩤", n:"Al-Kalb", div:"The Guardian", ang:"Alheniel", el:"Water", ty:"bad", d:{sl:"Denarna previdnost.", en:"Money caution."}},
-    {sig:"𐩣", n:"Al-Shaula", div:"The Enricher", ang:"Amnixiel", el:"Fire", ty:"bad", d:{sl:"Opustitev starega.", en:"Letting go."}},
-    {sig:"𐩠", n:"Al-Na'am", div:"The Opener", ang:"Kyriel", el:"Fire", ty:"good", d:{sl:"Uspeh in darila.", en:"Success."}},
-    {sig:"𐩥", n:"Al-Baldah", div:"The King", ang:"Bethnael", el:"Earth", ty:"neutral", d:{sl:"Temelji.", en:"Foundations."}},
-    {sig:"𐩷", n:"S. al-Dhabih", div:"The Capable", ang:"Geliel", el:"Earth", ty:"bad", d:{sl:"Sprememba.", en:"Change."}},
-    {sig:"𐩺", n:"S. al-Bula", div:"The Forgiver", ang:"Requiel", el:"Air", ty:"neutral", d:{sl:"Zdravje.", en:"Health."}},
-    {sig:"𐩰", n:"S. al-Su'ud", div:"The Grateful", ang:"Abrinael", el:"Air", ty:"good", d:{sl:"Velika sreča.", en:"Luck."}},
-    {sig:"𐩯", n:"S. al-Akhbiya", div:"The Self-Sufficient", ang:"Aziel", el:"Air", ty:"bad", d:{sl:"Skrivnosti.", en:"Secrets."}},
-    {sig:"𐩱", n:"A. al-Awwal", div:"The Powerful", ang:"Tagriel", el:"Water", ty:"good", d:{sl:"Mir.", en:"Peace."}},
-    {sig:"𐩨", n:"A. al-Thani", div:"The Giver", ang:"Abriel", el:"Water", ty:"neutral", d:{sl:"Družina.", en:"Family."}},
-    {sig:"𐩴", n:"Al-Risha", div:"The First", ang:"Amnixiel", el:"Water", ty:"good", d:{sl:"Konec cikla.", en:"End."}}
+    {sig:"𐩿", n:"Al-Sharatain", ty:"good", ang:"Geniel", el:"Fire", d:"Novi začetki."},
+    {sig:"𐩮", n:"Al-Butain", ty:"neutral", ang:"Enediel", el:"Earth", d:"Skrito bogastvo."},
+    {sig:"𐩤", n:"Al-Thurayya", ty:"good", ang:"Amixiel", el:"Fire", d:"Sreča v poslu."},
+    {sig:"𐩣", n:"Al-Debaran", ty:"bad", ang:"Azariel", el:"Earth", d:"Pazi na prepire."},
+    {sig:"𐩠", n:"Al-Haqa", ty:"good", ang:"Gabriel", el:"Air", d:"Modrost in učenje."},
+    {sig:"𐩥", n:"Al-Hana", ty:"good", ang:"Dirachiel", el:"Air", d:"Ljubezen in mir."},
+    {sig:"𐩷", n:"Al-Dhira", ty:"good", ang:"Seheliel", el:"Water", d:"Zaščita doma."},
+    {sig:"𐩺", n:"Al-Nathra", ty:"good", ang:"Amnediel", el:"Water", d:"Moč intuicije."},
+    {sig:"𐩰", n:"Al-Tarf", ty:"bad", ang:"Barbiel", el:"Fire", d:"Pazi na prevare."},
+    {sig:"𐩯", n:"Al-Jabhah", ty:"good", ang:"Ardifiel", el:"Fire", d:"Ugled in čast."},
+    {sig:"𐩱", n:"Al-Zubrah", ty:"good", ang:"Zariel", el:"Fire", d:"Dobiček s trudom."},
+    {sig:"𐩨", n:"Al-Sarfah", ty:"bad", ang:"Alariel", el:"Earth", d:"Počitek in samota."},
+    {sig:"𐩴", n:"Al-Awwa", ty:"good", ang:"Hagiel", el:"Earth", d:"Umetnost in lepota."},
+    {sig:"𐩵", n:"Al-Simak", ty:"neutral", ang:"Ataliel", el:"Earth", d:"Čiščenje energije."},
+    {sig:"𐩼", n:"Al-Ghafr", ty:"good", ang:"Iraziel", el:"Air", d:"Prijateljstva."},
+    {sig:"𐩹", n:"Al-Zubana", ty:"bad", ang:"Ariel", el:"Air", d:"Tehtanje odločitev."},
+    {sig:"𐩮", n:"Al-Iklil", ty:"good", ang:"Tagriel", el:"Water", d:"Premagovanje ovir."},
+    {sig:"𐩤", n:"Al-Kalb", ty:"bad", ang:"Alheniel", el:"Water", d:"Denarna previdnost."},
+    {sig:"𐩣", n:"Al-Shaula", ty:"bad", ang:"Amnixiel", el:"Fire", d:"Opustitev starega."},
+    {sig:"𐩠", n:"Al-Na'am", ty:"good", ang:"Kyriel", el:"Fire", d:"Uspeh in darila."},
+    {sig:"𐩥", n:"Al-Baldah", ty:"neutral", ang:"Bethnael", el:"Earth", d:"Temelji."},
+    {sig:"𐩷", n:"S. al-Dhabih", ty:"bad", ang:"Geliel", el:"Earth", d:"Sprememba."},
+    {sig:"𐩺", n:"S. al-Bula", ty:"neutral", ang:"Requiel", el:"Air", d:"Zdravje."},
+    {sig:"𐩰", n:"S. al-Su'ud", ty:"good", ang:"Abrinael", el:"Air", d:"Velika sreča."},
+    {sig:"𐩯", n:"S. al-Akhbiya", ty:"bad", ang:"Aziel", el:"Air", d:"Skrivnosti."},
+    {sig:"𐩱", n:"A. al-Awwal", ty:"good", ang:"Tagriel", el:"Water", d:"Mir."},
+    {sig:"𐩨", n:"A. al-Thani", ty:"neutral", ang:"Abriel", el:"Water", d:"Družina."},
+    {sig:"𐩴", n:"Al-Risha", ty:"good", ang:"Amnixiel", el:"Water", d:"Konec cikla."}
 ];
 
-// MODAL LOGIKA IN AKTIVACIJA
-function checkPremium() { if (!isPremium) document.getElementById('premiumModal').style.display = 'flex'; }
-function closePremiumModal() { document.getElementById('premiumModal').style.display = 'none'; }
-function showActivationInput() { document.getElementById('donationView').style.display = 'none'; document.getElementById('activationView').style.display = 'block'; }
-function showDonationView() { document.getElementById('donationView').style.display = 'block'; document.getElementById('activationView').style.display = 'none'; }
-function closeOnOutsideClick(e) { if (e.target.id === 'premiumModal') closePremiumModal(); }
-
-//  ORIGINALEN GENERATOR KLJUČA
-function generateKey(n) {
-    let h = 0; n = n.toUpperCase().trim();
-    for (let i = 0; i < n.length; i++) h += n.charCodeAt(i);
-    return (h * 7).toString();
-}
-// --- OSREDNJA LOGIKA ---
-function generateKey(n) {
-    let h = 0; n = n.toUpperCase().trim();
-    for (let i = 0; i < n.length; i++) h += n.charCodeAt(i);
-    return (h * 7).toString();
-}
-
+function checkPremium() { if(!isPremium) document.getElementById('premiumModal').style.display='flex'; }
+function generateKey(n) { let h=0; n=n.toUpperCase().trim(); for(let i=0; i<n.length; i++) h+=n.charCodeAt(i); return (h*7).toString(); }
 function processActivation() {
-    const n = document.getElementById('userNameInput').value.trim();
-    const k = document.getElementById('premiumKeyInput').value.trim();
-    const err = document.getElementById('activationError');
-    if (n !== "" && k === generateKey(n)) {
-        localStorage.setItem('manazil_premium', 'true');
-        alert(lang === 'sl' ? "Premium aktiviran! Moč je tvoja." : "Premium activated! Power is yours.");
-        location.reload();
-    } else {
-        err.innerText = lang === 'sl' ? "Napačen ključ ali ime." : "Invalid key or name.";
-    }
+    const n = document.getElementById('userNameInput').value;
+    const k = prompt("Vnesi prejeti ključ:");
+    if(k === generateKey(n) && n!="") { localStorage.setItem('manazil_premium','true'); alert("Odklenjeno!"); location.reload(); }
+    else alert("Napačen ključ.");
 }
 
-function checkPremium() {
-    if (!isPremium) document.getElementById('premiumModal').style.display = 'flex';
-}
-
-function showActivationInput() { 
-    document.getElementById('donationView').style.display = 'none'; 
-    document.getElementById('activationView').style.display = 'block'; 
-}
-
-function showDonationView() { 
-    document.getElementById('donationView').style.display = 'block'; 
-    document.getElementById('activationView').style.display = 'none'; 
-}
-
-// --- ORIGINALNI IZRAČUNI (MATEMATIKA LUNE) ---
 function getMData(d) {
-    const jd = (d.getTime() / 86400000) + 2440587.5, t = (jd - 2451545) / 36525;
-    let l = (218.316 + 481267.881 * t) % 360;
-    l += 6.289 * Math.sin((134.963 + 477198.867 * t) * Math.PI / 180);
-    const age = ((jd - 2451550.1) % 29.53059 + 29.53059) % 29.53059;
-    const p = Math.floor((age / 29.53059) * 8) % 8;
-    const i = ["🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘"];
-    return { l: (l + 360) % 360, ph: p, icon: i[p] };
-}
-
-function getN(s) {
-    let n = s.toString().replace(/\D/g, '').split('').reduce((a, b) => a + parseInt(b), 0);
-    while (n > 9) n = n.toString().split('').reduce((a, b) => a + parseInt(b), 0);
-    return n || 1;
+    const jd=(d.getTime()/86400000)+2440587.5, t=(jd-2451545)/36525;
+    let l=(218.316+481267.881*t)%360; l+=6.289*Math.sin((134.963+477198.867*t)*Math.PI/180);
+    return {l:(l+360)%360, ph:Math.floor(((jd-2451550.1)%29.53)/3.69)%8};
 }
 
 function update(d) {
-    const off = d.getTimezoneOffset() * 60000;
-    document.getElementById('dateInput').value = new Date(d - off).toISOString().slice(0, 16);
-    const da = getMData(d), mi = Math.floor(da.l / (360 / 28)) % 28, m = mansions[mi];
+    const da=getMData(d), mi=Math.floor(da.l/(360/28))%28, m=mansions[mi];
+    document.getElementById('wheelBox').className='wheel-container glow-'+m.ty;
+    document.getElementById('mSigil').innerText=m.sig;
+    document.getElementById('mName').innerText=(mi+1)+". "+m.n;
+    document.getElementById('mDesc').innerText=m.d;
+    document.getElementById('selected-date').innerText=d.toLocaleDateString('sl-SI',{day:'numeric',month:'long'});
     
-    document.getElementById('wheelBox').className = 'wheel-container glow-' + m.ty;
-    document.getElementById('moonPointer').setAttribute('transform', `rotate(${da.l},150,150)`);
-    document.getElementById('selected-date').innerText = d.toLocaleDateString(lang === 'sl' ? 'sl-SI' : 'en-US', { weekday: 'long', day: 'numeric', month: 'long' });
-    document.getElementById('mPhase').innerText = `${da.icon} ${i18n[lang].ph[da.ph]}`;
-    document.getElementById('mSigil').innerText = m.sig;
-    document.getElementById('mName').innerText = (mi + 1) + ". " + m.n;
-    document.getElementById('mDesc').innerText = m.d[lang];
-
-    const dN = getN(d.getDate().toString() + (d.getMonth() + 1).toString() + d.getFullYear().toString());
-    document.getElementById('dayNum').innerText = dN;
-
-    // Premium polja
-    if (isPremium) {
-        document.getElementById('eA').innerText = `😇 ANGEL: ${m.ang}`;
-        document.getElementById('eE').innerText = `✨ ELEM: ${lang === 'sl' ? i18n.sl.elm[m.el] : m.el}`;
+    if(isPremium) {
+        document.getElementById('eA').innerText="😇 ANGEL: "+m.ang;
+        document.getElementById('eE').innerText="✨ ELEM: "+m.el;
     } else {
-        document.getElementById('eA').innerText = `😇 ANGEL: 🔒 PREMIUM`;
-        document.getElementById('eE').innerText = `✨ ELEM: 🔒 PREMIUM`;
+        document.getElementById('eA').innerText="😇 ANGEL: 🔒";
+        document.getElementById('eE').innerText="✨ ELEM: 🔒";
     }
     renderCal(d);
 }
 
 function renderCal(sd) {
-    const c = document.getElementById('calendar'); c.innerHTML = '';
-    for (let i = 0; i < 7; i++) {
-        let d = new Date(sd); d.setDate(sd.getDate() + i);
-        const da = getMData(d), mi = Math.floor(da.l / (360 / 28)) % 28, m = mansions[mi];
-        const it = document.createElement('div'); it.className = `cal-item bg-${m.ty}`;
-        it.innerHTML = `<div style="font-size:0.65rem;">${d.getDate()}.${d.getMonth() + 1}.</div><div style="font-size:1.1rem;margin:2px 0;">${m.sig}</div><div style="font-size:0.55rem;font-weight:bold;">${m.n}</div>`;
-        it.onclick = () => update(new Date(d));
+    const c=document.getElementById('calendar'); c.innerHTML='';
+    for(let i=0;i<7;i++){
+        let d=new Date(sd); d.setDate(sd.getDate()+i);
+        const da=getMData(d), mi=Math.floor(da.l/(360/28))%28, m=mansions[mi];
+        const it=document.createElement('div'); it.className=`cal-item bg-${m.ty}`;
+        it.innerHTML=`<small>${d.getDate()}.</small><br>${m.sig}`;
+        it.onclick=()=>update(new Date(d));
         c.appendChild(it);
     }
 }
 
-function draw() {
-    const s = document.getElementById('mainWheel'); let h = '';
-    for (let i = 0; i < 360; i += 2) {
-        const r = i % 30 === 0 ? 115 : 130;
-        h += `<line x1="${150 + r * Math.cos((i - 90) * Math.PI / 180)}" y1="${150 + r * Math.sin((i - 90) * Math.PI / 180)}" x2="${150 + 145 * Math.cos((i - 90) * Math.PI / 180)}" y2="${150 + 145 * Math.sin((i - 90) * Math.PI / 180)}" stroke="white" stroke-width="${i % 30 === 0 ? 2 : 1}" style="opacity:0.3"/>`;
-    }
-    h += `<g id="moonPointer"><circle cx="150" cy="40" r="10" fill="white" filter="drop-shadow(0 0 8px white)"/></g>`;
-    s.innerHTML = h;
-}
-
 function hdlInp() { update(new Date(document.getElementById('dateInput').value || new Date())); }
-function saveBirth() { localStorage.setItem('manazil_birth', document.getElementById('birthInput').value); hdlInp(); }
+function saveBirth() { localStorage.setItem('m_birth', document.getElementById('birthInput').value); hdlInp(); }
 
-window.onload = () => {
-    draw();
-    update(new Date());
-    const sc = document.getElementById('stars');
-    for (let i = 0; i < 60; i++) {
-        const st = document.createElement('div'); st.className = 'star';
-        st.style.left = Math.random() * 100 + '%'; st.style.top = Math.random() * 100 + '%';
-        st.style.setProperty('--t', Math.random() * 3 + 2 + 's'); sc.appendChild(st);
+window.onload=()=>{
+    let h=''; for(let i=0;i<28;i++) {
+        const sA=i*(360/28)-90, eA=(i+1)*(360/28)-90;
+        h+=`<path d="M ${150+85*Math.cos(sA*Math.PI/180)} ${150+85*Math.sin(sA*Math.PI/180)} A 85 85 0 0 1 ${150+85*Math.cos(eA*Math.PI/180)} ${150+85*Math.sin(eA*Math.PI/180)}" fill="none" stroke="var(--${mansions[i].ty})" stroke-width="10"/>`;
     }
-};
+    h+=`<g id="moonPointer"><circle cx="150" cy="40" r="8" fill="white"/></g>`;
+    document.getElementById('mainWheel').innerHTML=h;
+    update(new Date());
+    const sc=document.getElementById('stars');
+    for(let i=0;i<50;i++) {
+        const s=document.createElement('div'); s.className='star';
+        s.style.left=Math.random()*100+'%'; s.style.top=Math.random()*100+'%';
+        sc.appendChild(s);
+    }
+}
 </script>
 </body>
 </html>
-

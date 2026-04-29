@@ -57,8 +57,50 @@
 
         /* MODAL DIZAJN - PREMIUM & DONACIJE */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.92); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
-        .premium-card { background: rgba(10, 15, 25, 0.95); border: 1px solid var(--gold); padding: 30px; border-radius: 35px; text-align: center; max-width: 380px; width: 92%; box-shadow: 0 0 40px rgba(212, 175, 55, 0.15); animation: mFadeUp 0.4s ease; }
-        @keyframes mFadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        /* Temen, mističen izgled modala */
+.premium-card { 
+    background: rgba(10, 15, 25, 0.95); /* Temno modra, skoraj črna */
+    border: 1px solid var(--gold); 
+    padding: 30px; 
+    border-radius: 35px; 
+    text-align: center; 
+    max-width: 380px; 
+    width: 92%; 
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.15); 
+    color: white; /* Da bo besedilo berljivo */
+    animation: mFadeUp 0.4s ease;
+}
+
+/* Popravek za vnosna polja znotraj modala, da niso bela */
+.premium-card input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    color: var(--gold);
+    margin: 10px 0;
+}
+
+/* Popravek za gumbe znotraj modala (npr. gumb NAZAJ) */
+.premium-card .secondary-btn {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    transition: 0.3s;
+}
+
+.premium-card .secondary-btn:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+/* Okvir za QR kodo naj ostane bel samo v ozadju slike, da je čitljiva */
+.qr-wrapper { 
+    background: white; 
+    padding: 15px; 
+    border-radius: 20px; 
+    display: inline-block; 
+    margin: 20px 0; 
+    border: 2px solid var(--gold);
+}
+
         
         .qr-wrapper { background: #fff; padding: 15px; border-radius: 20px; display: inline-block; margin: 20px 0; border: 3px solid var(--gold); }
         .qr-wrapper img { display: block; width: 180px; height: 180px; border-radius: 10px; }
@@ -141,14 +183,20 @@
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAAAAAB6S98CAAAB30lEQVR4nO2YwY6DMAxEn///6B66Sii0YMeGfUp76pY9OAmD7ST2798e/qS6mXvY6S999/fCHv0pX36/9P0lX/7H9+n3S9/N6fcqfXWn8Xv5/fB8v345v/eS7X7q/v0Rz8f9z/u5H/ZLv8n6lI687p9H6Yx5+XmUjp+Xz/R7+XzH6fe8/fB7P98P96P97fF+7kX98u/n98nz/f7pfu9L/unf7p/vj/f7+Z9+r/+Xz9fD7X7pPv3fO8X/O73v5fO3E/n79/u99PZfO2N+Xz8+X96f9rP7X+3pvn69f6fO1K/2U9Wv5/Xj96r9Yv7K/L5/fD++X61f68u/m8/Xw+7/0p3S8/H7S0fv29738fuhI/X9v/+v++P3K/v58v7+/X7/S96vz9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V69fPq9+Xv++V6
 
         <!-- POGLED ZA VNOS KLJUČA -->
-        <div id="activationView" style="display: none;">
-            <h2 style="color: var(--gold); margin: 0 0 10px 0; font-weight: 300; letter-spacing: 2px;">AKTIVACIJA</h2>
-            <p style="font-size: 0.85rem;">Vnesite ključ, ki ste ga prejeli:</p>
-            <input type="text" id="premiumKeyInput" class="key-input-field" placeholder="KLJUČ">
-            <button class="big-btn btn-gold" onclick="processActivation()">AKTIVIRAJ MOČ</button>
-            <p id="activationError" style="color: var(--bad); font-size: 0.8rem; margin-top: 10px; min-height: 1.2rem;"></p>
-            <button class="secondary-btn" onclick="showDonationView()">NAZAJ</button>
-        </div>
+       <div id="activationView" style="display: none;">
+    <h2 style="color: var(--gold); margin: 0 0 10px 0; font-weight: 300; letter-spacing: 2px;">AKTIVACIJA</h2>
+    <p style="font-size: 0.85rem; color: #fff; opacity: 0.8;">Vnesite ključ, ki ste ga prejeli:</p>
+    
+    <input type="text" id="premiumKeyInput" class="key-input-field" placeholder="KLJUČ">
+    
+    <button class="big-btn btn-gold" onclick="processActivation()">AKTIVIRAJ MOČ</button>
+    
+    <p id="activationError" style="color: var(--bad); font-size: 0.8rem; margin-top: 10px; min-height: 1.2rem;"></p>
+    
+    <!-- Gumb nazaJ ima zdaj razred secondary-btn -->
+    <button class="secondary-btn" style="width: 100%;" onclick="showDonationView()">NAZAJ</button>
+</div>
+
         
         <span class="close-x" onclick="closePremiumModal()">ZAPRI OKNO</span>
     </div>

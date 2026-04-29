@@ -2,198 +2,157 @@
 <html lang="sl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Manazil al-Qamar | Power Oracle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manazil Oracle | Premium</title>
     <style>
-        :root { --gold: #d4af37; --bg: #05070a; --card: rgba(10, 15, 25, 0.85); --good: #2ea043; --bad: #da3633; --neutral: #8b949e; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: #e0e6ed; margin: 0; padding: 15px; display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden; }
-        #stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at center, #0a0f1a 0%, #05070a 100%); }
+        :root { --gold: #d4af37; --bg: #05070a; --card: rgba(10, 15, 25, 0.9); --good: #2ea043; --bad: #da3633; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: #e0e6ed; margin: 0; padding: 15px; display: flex; justify-content: center; min-height: 100vh; overflow: hidden; }
+        #stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: twinkle var(--t) infinite; }
         @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
-        .app-container { max-width: 500px; width: 100%; background: var(--card); backdrop-filter: blur(20px); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 35px; padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); z-index: 1; }
-        h1 { font-weight: 300; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin: 0; font-size: 1.5rem; text-align: center; }
-        .sub-header { font-size: 0.75rem; color: var(--gold); opacity: 0.8; margin-bottom: 10px; text-align: center; }
-        #selected-date { font-weight: bold; color: var(--gold); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 10px; text-align: center; }
-        .wheel-container { position: relative; width: 240px; height: 240px; margin: 0 auto 15px; border-radius: 50%; transition: box-shadow 0.6s ease; }
-        .glow-good { box-shadow: 0 0 35px var(--good); } .glow-bad { box-shadow: 0 0 35px var(--bad); } .glow-neutral { box-shadow: 0 0 35px var(--gold); }
-        .input-group { display: flex; gap: 8px; margin-bottom: 10px; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); }
-        input { flex: 2; background: transparent; border: none; color: white; outline: none; color-scheme: dark; }
-        .update-btn { background: var(--gold); border: none; padding: 8px 12px; border-radius: 10px; font-weight: bold; cursor: pointer; color: #000; }
-        .info-panel { text-align: center; padding: 15px; border-radius: 25px; background: rgba(0,0,0,0.5); border: 1px solid rgba(212, 175, 55, 0.15); margin-bottom: 15px; }
-        #mSigil { font-size: 3.5rem; color: var(--gold); line-height: 1; filter: drop-shadow(0 0 8px var(--gold)); }
-        #pill { display:inline-block; padding:3px 10px; border-radius:10px; font-size:0.65rem; font-weight:bold; color:#fff; margin:5px 0; }
-        .num-circle { width: 42px; height: 42px; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: bold; color: var(--gold); margin: 0 auto 5px; }
-        .cal { display: flex; gap: 8px; overflow-x: auto; padding: 10px 0; scrollbar-width: none; }
-        .cal-item { min-width: 100px; padding: 10px; border-radius: 15px; text-align: center; flex-shrink: 0; cursor: pointer; color: white; border: 2px solid transparent; }
-        .bg-good { background: rgba(46, 160, 67, 0.4) !important; border-color: var(--good); }
-        .bg-bad { background: rgba(218, 54, 51, 0.4) !important; border-color: var(--bad); }
-        .bg-neutral { background: rgba(212, 175, 55, 0.2) !important; border-color: var(--gold); }
-        .big-btn { width: 100%; padding: 14px; border-radius: 15px; font-weight: bold; text-transform: uppercase; cursor: pointer; margin-top: 8px; border: none; }
-        .btn-gold { background: var(--gold); color: #000; }
-        .locked-field { filter: blur(4px); opacity: 0.6; cursor: pointer; }
-
-        /* MODAL STIL */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(12px); }
-        .premium-card { background: rgba(10, 15, 25, 0.98); border: 1px solid var(--gold); padding: 30px; border-radius: 35px; text-align: center; max-width: 380px; width: 92%; color: white; box-shadow: 0 0 50px #000; }
-        .qr-wrapper { background: white; padding: 10px; border-radius: 20px; display: inline-block; margin: 15px 0; }
-        .qr-wrapper img { display: block; width: 160px; height: 160px; }
-        .paypal-btn { background: #0070ba; color: white !important; text-decoration: none; padding: 14px; border-radius: 15px; width: 100%; display: block; font-weight: bold; box-sizing: border-box; margin-top: 10px; }
-        .secondary-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px; border-radius: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .app-container { max-width: 450px; width: 100%; background: var(--card); backdrop-filter: blur(20px); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 30px; padding: 20px; box-shadow: 0 20px 50px #000; z-index: 1; text-align: center; }
+        h1 { color: var(--gold); letter-spacing: 3px; font-weight: 300; margin: 0; }
+        .wheel-container { position: relative; width: 220px; height: 220px; margin: 15px auto; border-radius: 50%; transition: 0.6s; }
+        .glow-good { box-shadow: 0 0 30px var(--good); } .glow-bad { box-shadow: 0 0 30px var(--bad); } .glow-neutral { box-shadow: 0 0 30px var(--gold); }
+        .info-panel { background: rgba(0,0,0,0.4); padding: 15px; border-radius: 20px; border: 1px solid rgba(212,175,55,0.1); margin: 15px 0; }
+        .num-circle { width: 40px; height: 40px; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-weight: bold; }
+        .big-btn { width: 100%; padding: 12px; border-radius: 12px; font-weight: bold; cursor: pointer; border: none; background: var(--gold); color: #000; margin-top: 10px; }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 999; }
+        .card { background: #0a0f1a; border: 1px solid var(--gold); padding: 25px; border-radius: 25px; max-width: 320px; width: 90%; color: white; }
+        .qr-box { background: white; padding: 10px; border-radius: 15px; display: inline-block; margin: 15px 0; }
+        .paypal-btn { background: #0070ba; color: white !important; text-decoration: none; padding: 12px; border-radius: 10px; display: block; font-weight: bold; margin: 10px 0; }
+        .locked { filter: blur(4px); opacity: 0.5; cursor: pointer; }
     </style>
 </head>
 <body>
 <div id="stars"></div>
 <div class="app-container">
-    <h1>Manazil al-Qamar</h1>
-    <div class="sub-header">Arabski lunini dvorci</div>
-    <div id="selected-date">---</div>
-    <div class="input-group"><input type="datetime-local" id="dateInput"><button class="update-btn" onclick="hdlInp()">OSVEŽI</button></div>
-    <div class="input-group"><input type="date" id="birthInput" onchange="saveBirth()" placeholder="Rojstni datum"></div>
-    <div id="wheelBox" class="wheel-container"><svg id="mainWheel" viewBox="0 0 300 300" style="width:100%; height:100%"></svg></div>
+    <h1>Manazil Oracle</h1>
+    <div id="date-display" style="color:var(--gold); font-size: 0.9rem; margin-top:5px;">---</div>
+    <div style="margin: 10px 0;"><input type="date" id="bDay" onchange="saveB()" style="background:none; border:1px solid #333; color:white; padding:5px; border-radius:5px;"></div>
+    <div id="wBox" class="wheel-container"><svg id="wheel" viewBox="0 0 300 300" style="width:100%"></svg></div>
     <div class="info-panel">
-        <div id="mPhase">---</div>
-        <div id="mSigil"></div><div id="pill">---</div>
-        <div id="mName" style="font-size:1.4rem; font-weight:bold;">---</div>
-        <div style="display:flex; justify-content:space-around; margin:15px 0;">
-            <div><div class="num-circle" id="dayNum">-</div><div style="font-size:0.6rem">DAN</div></div>
-            <div id="pSec" style="display:none;"><div class="num-circle" id="persNum">-</div><div style="font-size:0.6rem">TI</div></div>
+        <div id="mSig" style="font-size:3.5rem; color:var(--gold);"></div>
+        <div id="mName" style="font-weight:bold; font-size:1.2rem;">---</div>
+        <div style="display:flex; justify-content:space-around; margin:10px 0;">
+            <div><div class="num-circle" id="dNum">-</div><small>DAN</small></div>
+            <div id="pSec" style="display:none;"><div class="num-circle" id="pNum">-</div><small>TI</small></div>
         </div>
-        <div id="mDesc" style="color:var(--gold); font-weight:bold; margin:10px 0;">---</div>
-        <div id="extra" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:0.8rem; color:var(--gold); font-weight:bold;">
-            <div id="eA" onclick="checkPremium()">😇 ANGEL: -</div><div id="eE" onclick="checkPremium()">✨ ELEM: -</div>
+        <div id="mDesc" style="font-size:0.9rem; min-height:40px;">---</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:0.75rem; color:var(--gold);" onclick="openM()">
+            <div id="eA">😇 ANGEL: 🔒</div><div id="eE">✨ ELEM: 🔒</div>
         </div>
     </div>
-    <div class="cal" id="calendar"></div>
-    <button class="big-btn btn-gold" onclick="checkPremium()">AKTIVIRAJ PREMIUM</button>
+    <button class="big-btn" onclick="openM()">AKTIVIRAJ PREMIUM</button>
 </div>
 
-<div id="premiumModal" class="modal-overlay" onclick="if(event.target==this)this.style.display='none'">
-    <div class="premium-card">
-        <div id="donationView">
-            <h2 style="color:var(--gold); font-weight:300;">PREMIUM ODKLEP</h2>
-            <p style="font-size:0.85rem">Za aktivacijo vpišite ime (npr. MATEJ):</p>
-            <input type="text" id="userNameInput" placeholder="IME" style="width:100%; padding:14px; border-radius:15px; border:1px solid var(--gold); background:rgba(255,255,255,0.05); color:white; text-align:center; font-size:1.1rem;" onkeyup="this.value = this.value.toUpperCase()">
-            <div class="qr-wrapper">
-                <img src="https://qrserver.com" alt="PayPal QR">
-            </div>
-            <p style="font-size:0.75rem; color: white; opacity: 0.8;">Donirajte 5€+ in v sporočilo pripišite IME.</p>
-            <a href="https://paypal.com" target="_blank" class="paypal-btn">DONIRAJ PREK PAYPAL</a>
-            <button class="secondary-btn" onclick="showActivationInput()">VNESI PREJETI KLJUČ</button>
+<div id="modal" class="modal" onclick="if(event.target==this)this.style.display='none'">
+    <div class="card">
+        <h2 style="color:var(--gold); margin:0;">PREMIUM</h2>
+        <p style="font-size:0.8rem;">Vpiši ime za aktivacijo:</p>
+        <input type="text" id="uName" placeholder="IME" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--gold); background:none; color:white; text-align:center;">
+        <div class="qr-box">
+            <img src="https://qrserver.com" width="140" height="140">
         </div>
-        <div id="activationView" style="display:none">
-            <h2 style="color:var(--gold); font-weight:300;">AKTIVACIJA</h2>
-            <input type="text" id="premiumKeyInput" class="key-input-field" placeholder="KLJUČ">
-            <button class="big-btn btn-gold" onclick="processActivation()">POTRDI KLJUČ</button>
-            <button class="secondary-btn" onclick="showDonationView()">NAZAJ</button>
-        </div>
+        <p style="font-size:0.7rem; opacity:0.8;">Doniraj 5€+ in pripiši ime.<br>Ključ prejmeš na e-mail.</p>
+        <a href="https://paypal.me" target="_blank" class="paypal-btn">PayPal.me/andraz82</a>
+        <button class="big-btn" style="background:none; border:1px solid var(--gold); color:var(--gold)" onclick="doAct()">VNESI KLJUČ</button>
     </div>
 </div>
 
 <script>
-let lang = 'sl', aCtx = null;
-let isPremium = localStorage.getItem('manazil_premium') === 'true';
-
+let isPrem = localStorage.getItem('manazil_premium') === 'true';
 const mansions = [
-    {sig:"𐩿", n:"Al-Sharatain", ty:"good", ang:"Geniel", el:"Fire", d:"Novi začetki."},
-    {sig:"𐩮", n:"Al-Butain", ty:"neutral", ang:"Enediel", el:"Earth", d:"Skrito bogastvo."},
-    {sig:"𐩤", n:"Al-Thurayya", ty:"good", ang:"Amixiel", el:"Fire", d:"Sreča v poslu."},
-    {sig:"𐩣", n:"Al-Debaran", ty:"bad", ang:"Azariel", el:"Earth", d:"Pazi na prepire."},
-    {sig:"𐩠", n:"Al-Haqa", ty:"good", ang:"Gabriel", el:"Air", d:"Modrost in učenje."},
-    {sig:"𐩥", n:"Al-Hana", ty:"good", ang:"Dirachiel", el:"Air", d:"Ljubezen in mir."},
-    {sig:"𐩷", n:"Al-Dhira", ty:"good", ang:"Seheliel", el:"Water", d:"Zaščita doma."},
-    {sig:"𐩺", n:"Al-Nathra", ty:"good", ang:"Amnediel", el:"Water", d:"Moč intuicije."},
-    {sig:"𐩰", n:"Al-Tarf", ty:"bad", ang:"Barbiel", el:"Fire", d:"Pazi na prevare."},
-    {sig:"𐩯", n:"Al-Jabhah", ty:"good", ang:"Ardifiel", el:"Fire", d:"Ugled in čast."},
-    {sig:"𐩱", n:"Al-Zubrah", ty:"good", ang:"Zariel", el:"Fire", d:"Dobiček s trudom."},
-    {sig:"𐩨", n:"Al-Sarfah", ty:"bad", ang:"Alariel", el:"Earth", d:"Počitek in samota."},
-    {sig:"𐩴", n:"Al-Awwa", ty:"good", ang:"Hagiel", el:"Earth", d:"Umetnost in lepota."},
-    {sig:"𐩵", n:"Al-Simak", ty:"neutral", ang:"Ataliel", el:"Earth", d:"Čiščenje energije."},
-    {sig:"𐩼", n:"Al-Ghafr", ty:"good", ang:"Iraziel", el:"Air", d:"Prijateljstva."},
-    {sig:"𐩹", n:"Al-Zubana", ty:"bad", ang:"Ariel", el:"Air", d:"Tehtanje odločitev."},
-    {sig:"𐩮", n:"Al-Iklil", ty:"good", ang:"Tagriel", el:"Water", d:"Premagovanje ovir."},
-    {sig:"𐩤", n:"Al-Kalb", ty:"bad", ang:"Alheniel", el:"Water", d:"Denarna previdnost."},
-    {sig:"𐩣", n:"Al-Shaula", ty:"bad", ang:"Amnixiel", el:"Fire", d:"Opustitev starega."},
-    {sig:"𐩠", n:"Al-Na'am", ty:"good", ang:"Kyriel", el:"Fire", d:"Uspeh in darila."},
-    {sig:"𐩥", n:"Al-Baldah", ty:"neutral", ang:"Bethnael", el:"Earth", d:"Temelji."},
-    {sig:"𐩷", n:"S. al-Dhabih", ty:"bad", ang:"Geliel", el:"Earth", d:"Sprememba."},
-    {sig:"𐩺", n:"S. al-Bula", ty:"neutral", ang:"Requiel", el:"Air", d:"Zdravje."},
-    {sig:"𐩰", n:"S. al-Su'ud", ty:"good", ang:"Abrinael", el:"Air", d:"Velika sreča."},
-    {sig:"𐩯", n:"S. al-Akhbiya", ty:"bad", ang:"Aziel", el:"Air", d:"Skrivnosti."},
-    {sig:"𐩱", n:"A. al-Awwal", ty:"good", ang:"Tagriel", el:"Water", d:"Mir."},
-    {sig:"𐩨", n:"A. al-Thani", ty:"neutral", ang:"Abriel", el:"Water", d:"Družina."},
-    {sig:"𐩴", n:"Al-Risha", ty:"good", ang:"Amnixiel", el:"Water", d:"Konec cikla."}
+    {s:"𐩿", n:"Al-Sharatain", t:"good", a:"Geniel", e:"Ogenj", d:"Novi začetki."},
+    {s:"𐩮", n:"Al-Butain", t:"neutral", a:"Enediel", e:"Zemlja", d:"Skrito bogastvo."},
+    {s:"𐩤", n:"Al-Thurayya", t:"good", a:"Amixiel", e:"Ogenj", d:"Sreča v poslu."},
+    {s:"𐩣", n:"Al-Debaran", t:"bad", a:"Azariel", e:"Zemlja", d:"Pazi na prepire."},
+    {s:"𐩠", n:"Al-Haqa", t:"good", a:"Gabriel", e:"Zrak", d:"Modrost in učenje."},
+    {s:"𐩥", n:"Al-Hana", t:"good", a:"Dirachiel", e:"Zrak", d:"Ljubezen in mir."},
+    {s:"𐩷", n:"Al-Dhira", t:"good", a:"Seheliel", e:"Voda", d:"Zaščita doma."},
+    {s:"𐩺", n:"Al-Nathra", t:"good", a:"Amnediel", e:"Voda", d:"Moč intuicije."},
+    {s:"𐩰", n:"Al-Tarf", t:"bad", a:"Barbiel", e:"Ogenj", d:"Previdnost."},
+    {s:"𐩯", n:"Al-Jabhah", t:"good", a:"Ardifiel", e:"Ogenj", d:"Ugled in čast."},
+    {s:"𐩱", n:"Al-Zubrah", t:"good", a:"Zariel", e:"Ogenj", d:"Dobiček."},
+    {s:"𐩨", n:"Al-Sarfah", t:"bad", a:"Alariel", e:"Zemlja", d:"Samota."},
+    {s:"𐩴", n:"Al-Awwa", t:"good", a:"Hagiel", e:"Zemlja", d:"Umetnost."},
+    {s:"𐩵", n:"Al-Simak", t:"neutral", a:"Ataliel", e:"Zemlja", d:"Čiščenje."},
+    {s:"𐩼", n:"Al-Ghafr", t:"good", a:"Iraziel", e:"Zrak", d:"Prijateljstva."},
+    {s:"𐩹", n:"Al-Zubana", t:"bad", a:"Ariel", e:"Zrak", d:"Odločitve."},
+    {s:"𐩮", n:"Al-Iklil", t:"good", a:"Tagriel", e:"Voda", d:"Oviram ni poti."},
+    {s:"𐩤", n:"Al-Kalb", t:"bad", a:"Alheniel", e:"Voda", d:"Previdnost."},
+    {s:"𐩣", n:"Al-Shaula", t:"bad", a:"Amnixiel", e:"Ogenj", d:"Opustitev."},
+    {s:"𐩠", n:"Al-Na'am", t:"good", a:"Kyriel", e:"Ogenj", d:"Uspeh."},
+    {s:"𐩥", n:"Al-Baldah", t:"neutral", a:"Bethnael", e:"Zemlja", d:"Temelji."},
+    {s:"𐩷", n:"S. al-Dhabih", t:"bad", a:"Geliel", e:"Zemlja", d:"Sprememba."},
+    {s:"𐩺", n:"S. al-Bula", t:"neutral", a:"Requiel", e:"Zrak", d:"Zdravje."},
+    {s:"𐩰", n:"S. al-Su'ud", t:"good", a:"Abrinael", e:"Zrak", d:"Velika sreča."},
+    {s:"𐩯", n:"S. al-Akhbiya", t:"bad", a:"Aziel", e:"Zrak", d:"Skrivnosti."},
+    {s:"𐩱", n:"A. al-Awwal", t:"good", a:"Tagriel", e:"Voda", d:"Mir."},
+    {s:"𐩨", n:"A. al-Thani", t:"neutral", a:"Abriel", e:"Voda", d:"Družina."},
+    {s:"𐩴", n:"Al-Risha", t:"good", a:"Amnixiel", e:"Voda", d:"Konec cikla."}
 ];
 
-function checkPremium() { if(!isPremium) document.getElementById('premiumModal').style.display='flex'; }
-function showActivationInput() { document.getElementById('donationView').style.display='none'; document.getElementById('activationView').style.display='block'; }
-function showDonationView() { document.getElementById('donationView').style.display='block'; document.getElementById('activationView').style.display='none'; }
+function openM() { if(!isPrem) document.getElementById('modal').style.display='flex'; }
 
-function getMData(d) {
+function doAct() {
+    const n = document.getElementById('uName').value.trim().toUpperCase();
+    const k = prompt("Vnesi ključ:");
+    let h=0; for(let i=0; i<n.length; i++) h+=n.charCodeAt(i);
+    if(k === (h*7).toString() && n!="") { 
+        localStorage.setItem('manazil_premium','true'); 
+        alert("Odklenjeno!"); location.reload(); 
+    } else alert("Napačen ključ.");
+}
+
+function update() {
+    const d = new Date();
     const jd=(d.getTime()/86400000)+2440587.5, t=(jd-2451545)/36525;
     let l=(218.316+481267.881*t)%360; l+=6.289*Math.sin((134.963+477198.867*t)*Math.PI/180);
-    const age=((jd-2451550.1)%29.53059+29.53059)%29.53059, p=Math.floor((age/29.53059)*8)%8, i=["🌑","🌒","🌓","🌔","🌕","🌖","🌗","🌘"];
-    return {l:(l+360)%360, ph:p, icon:i[p]};
-}
-
-function update(d) {
-    const da=getMData(d), mi=Math.floor(da.l/(360/28))%28, m=mansions[mi];
-    document.getElementById('wheelBox').className='wheel-container glow-'+m.ty;
-    document.getElementById('mSigil').innerText=m.sig;
+    const mi=Math.floor(((l+360)%360)/(360/28))%28, m=mansions[mi];
+    
+    document.getElementById('wBox').className='wheel-container glow-'+m.t;
+    document.getElementById('mSig').innerText=m.s;
     document.getElementById('mName').innerText=(mi+1)+". "+m.n;
     document.getElementById('mDesc').innerText=m.d;
-    document.getElementById('selected-date').innerText=d.toLocaleDateString('sl-SI',{day:'numeric',month:'long',weekday:'long'});
-    document.getElementById('mPhase').innerText=`${da.icon} Luna`;
-    document.getElementById('pill').innerText=m.ty.toUpperCase();
-    document.getElementById('pill').className='bg-'+m.ty;
-    document.getElementById('moonPointer').setAttribute('transform',`rotate(${da.l},150,150)`);
+    document.getElementById('date-display').innerText=d.toLocaleDateString('sl-SI',{day:'numeric',month:'long'});
     
-    if(isPremium) {
-        document.getElementById('eA').innerText="😇 ANGEL: "+m.ang;
-        document.getElementById('eE').innerText="✨ ELEM: "+m.el;
-    } else {
-        document.getElementById('eA').innerText="😇 ANGEL: 🔒";
-        document.getElementById('eE').innerText="✨ ELEM: 🔒";
-    }
-    renderCal(d);
-}
-
-function renderCal(sd) {
-    const c=document.getElementById('calendar'); c.innerHTML='';
-    for(let i=0;i<7;i++){
-        let d=new Date(sd); d.setDate(sd.getDate()+i);
-        const da=getMData(d), mi=Math.floor(da.l/(360/28))%28, m=mansions[mi];
-        const it=document.createElement('div'); it.className=`cal-item bg-${m.ty}`;
-        it.innerHTML=`<div style="font-size:0.65rem">${d.getDate()}.${d.getMonth()+1}.</div><div>${m.sig}</div>`;
-        it.onclick=()=>update(new Date(d));
-        c.appendChild(it);
-    }
-}
-
-function hdlInp() { update(new Date(document.getElementById('dateInput').value || new Date())); }
-function saveBirth() { localStorage.setItem('m_birth', document.getElementById('birthInput').value); hdlInp(); }
-
-function processActivation() {
-    const n = document.getElementById('userNameInput').value.trim().toUpperCase();
-    const k = document.getElementById('premiumKeyInput').value.trim();
-    let h=0; for(let i=0; i<n.length; i++) h+=n.charCodeAt(i);
-    if((h*7).toString() === k && n!=="") { localStorage.setItem('manazil_premium','true'); location.reload(); }
-    else alert("Napačen ključ.");
-}
-
-window.onload=()=>{
+    // SVG krogla
     let h=''; for(let i=0;i<28;i++) {
         const sA=i*(360/28)-90, eA=(i+1)*(360/28)-90;
-        h+=`<path d="M ${150+85*Math.cos(sA*Math.PI/180)} ${150+85*Math.sin(sA*Math.PI/180)} A 85 85 0 0 1 ${150+85*Math.cos(eA*Math.PI/180)} ${150+85*Math.sin(eA*Math.PI/180)}" fill="none" stroke="var(--${mansions[i].ty})" stroke-width="10" opacity="0.8"/>`;
+        h+=`<path d="M ${150+85*Math.cos(sA*Math.PI/180)} ${150+85*Math.sin(sA*Math.PI/180)} A 85 85 0 0 1 ${150+85*Math.cos(eA*Math.PI/180)} ${150+85*Math.sin(eA*Math.PI/180)}" fill="none" stroke="var(--${mansions[i].t})" stroke-width="12"/>`;
     }
-    h+=`<g id="moonPointer"><circle cx="150" cy="40" r="10" fill="white" filter="drop-shadow(0 0 8px white)"/></g>`;
-    document.getElementById('mainWheel').innerHTML=h;
-    update(new Date());
+    h+=`<circle cx="150" cy="150" r="140" fill="none" stroke="rgba(212,175,55,0.1)" stroke-width="1"/>`;
+    h+=`<g transform="rotate(${(l+360)%360},150,150)"><circle cx="150" cy="40" r="8" fill="white" filter="drop-shadow(0 0 5px white)"/></g>`;
+    document.getElementById('wheel').innerHTML=h;
+
+    // Numerologija
+    const n = (s) => { let r=s.toString().split('').reduce((a,b)=>a+parseInt(b),0); return r>9?n(r):r; };
+    document.getElementById('dNum').innerText = n(d.getDate()+(d.getMonth()+1)+d.getFullYear());
+
+    if(isPrem) {
+        document.getElementById('eA').innerText="😇 ANGEL: "+m.a;
+        document.getElementById('eE').innerText="✨ ELEM: "+m.e;
+        const b=localStorage.getItem('m_birth');
+        if(b){
+            document.getElementById('pSec').style.display='block';
+            document.getElementById('pNum').innerText=n(b.replace(/-/g,''));
+        }
+    }
+}
+
+function saveB() { localStorage.setItem('m_birth', document.getElementById('bDay').value); update(); }
+
+window.onload=()=>{
     const sc=document.getElementById('stars');
-    for(let i=0;i<60;i++){
-        const st=document.createElement('div'); st.className='star';
-        st.style.left=Math.random()*100+'%'; st.style.top=Math.random()*100+'%';
-        st.style.setProperty('--t',Math.random()*3+2+'s'); sc.appendChild(st);
+    for(let i=0;i<50;i++) {
+        const s=document.createElement('div'); s.className='star';
+        s.style.left=Math.random()*100+'%'; s.style.top=Math.random()*100+'%';
+        s.style.setProperty('--t',Math.random()*3+2+'s'); sc.appendChild(s);
     }
+    const sav=localStorage.getItem('m_birth');
+    if(sav) document.getElementById('bDay').value=sav;
+    update();
 }
 </script>
 </body>

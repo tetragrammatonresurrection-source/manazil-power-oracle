@@ -4,33 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Manazil al-Qamar | Power Oracle</title>
-    <!-- Social Media (Open Graph / Facebook / WhatsApp) -->
-<meta property="og:title" content="Manazil al-Qamar | Power Oracle">
-<meta property="og:description" content="Spoznajte ritem vesolja. Starodavna arabska modrost luninih dvorcev in osebna dnevna numerologija.
-Learn the rhythm of the universe. Ancient Arabic wisdom of the lunar mansions and personal daily numerology.">
-<meta property="og:url" content="https://github.io">
-<meta property="og:image" content="https://raw.githubusercontent.com/tetragrammatonresurrection-source/manazil-power-oracle/refs/heads/main/preview.png">
-
-<meta property="og:type" content="website">
-<meta property="og:locale" content="sl_SI">
-
-<!-- Twitter / X -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Manazil al-Qamar | Power Oracle">
-<meta name="twitter:description" content="Discover your Arabic Lunar Mansion and daily numerology tactic.">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/tetragrammatonresurrection-source/manazil-power-oracle/refs/heads/main/preview.png">
-
-
-<!-- Ikone in Manifest -->
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="icon-512.png">
-<link rel="manifest" href="manifest.json">
-
-<!-- Mobilne nastavitve -->
-<meta name="theme-color" content="#05070a">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
     <style>
         :root { --gold: #d4af37; --bg: #05070a; --card: rgba(10, 15, 25, 0.85); --good: #2ea043; --bad: #da3633; --neutral: #8b949e; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: #e0e6ed; margin: 0; padding: 15px; display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden; }
@@ -113,8 +86,13 @@ const i18n = {
         elm: { "Fire": "Ogenj", "Earth": "Zemlja", "Air": "Zrak", "Water": "Voda" },
         adv: ["Bodi drzen.","Fokus na stabilnost.","Komuniciraj.","Posveti se domu.","Bodi ustvarjalen.","Uredi obveznosti.","Išči ravnovesje.","Poglej globoko.","Raziskuj.","Postavi cilje.","Bodi unikaten.","Prisluhni sanjam."],
         ui: { sub:"Arabski lunini dvorci po Ibn Arabiju", up:"OSVEŽI", b:"Rojstni datum", d:"DAN", p:"TI", t:"SKUPAJ", h:"POMOČ IN NAVODILA", dn:"Prenesi aplikacijo", bod:"🧬 TELO", rul:"🪐 VLADAR", ang:"😇 ANGEL", elm:"✨ ELEM" },
-        help: `<b>CELOTEN VODNIK ZA UPORABO ORACLA:</b><br><br>🌙 <b>LUNINI DVORCI (Manazil):</b><br>• <span style="color:var(--good)"><b>ZELENA:</b></span> Vrata so odprta. Idealno za investicije in nove začetke.<br>• <span style="color:var(--gold)"><b>ZLATA:</b></span> Vzdrževanje. Utrdi tisto, kar že imaš.<br>• <span style="color:var(--bad)"><b>RDEČA:</b></span> Energija je gosta. Bodi opazovalec, ne akter.<br><br>🌓 <b>FAZE LUNE:</b><br>• <b>MLAJ & RASTOČA:</b> Čas za sejanje idej. Energija raste.<br>• <b>ŠČIP (POLNA LUNA):</b> Vrhunec moči in čustvene napetosti.<br>• <b>UPADAJOČA:</b> Čas za čiščenje, razstrupljanje in opuščanje.<br><br>🔢 <b>NUMEROLOŠKA TAKTIKA (1-9):</b><br>• <b>1 - VODI:</b> Danes prevzemi pobudo.<br>• <b>2 - SODELUJ:</b> Uspeh pride skozi diplomacijo.<br>• <b>3 - USTVARJAJ:</b> Čas za komunikacijo in kreativnost.<br>• <b>4 - GRADI:</b> Danes bodi discipliniran.<br>• <b>5 - SPREMENI:</b> Pričakuj nepričakovano.<br>• <b>6 - SKRBI:</b> Osredotoči se na dom in družino.<br>• <b>7 - ANALIZIRAJ:</b> Pojdi vase, meditiraj.<br>• <b>8 - VLADAJ:</b> Čas za finance in rezultate.<br>• <b>9 - ZAKLJUČI:</b> Končaj projekte in odpusti staro.<br><br>🧬 <b>TELO:</b> Del telesa pod vplivom lune.<br>🪐 <b>VLADAR:</b> Planetarna energija dneva.<br><br><button onclick="unlockPrompt()" style="width:100%;padding:12px;background:var(--gold);border:none;border-radius:15px;font-weight:bold;cursor:pointer;margin-top:10px;">✨ AKTIVIRAJ PREMIUM</button>`
-    },
+        help: `<b>CELOTEN VODNIK ZA UPORABO ORACLA:</b><br><br>🌙 <b>LUNINI DVORCI (Manazil):</b><br>• <span style="color:var(--good)"><b>ZELENA:</b></span> Vrata so odprta. Idealno za investicije in nove začetke.<br>• <span style="color:var(--gold)"><b>ZLATA:</b></span> Vzdrževanje. Utrdi tisto, kar že imaš.<br>• <span style="color:var(--bad)"><b>RDEČA:</b></span> Energija je gosta. Bodi opazovalec, ne akter.<br><br>🌓 <b>FAZE LUNE:</b><br>• <b>MLAJ & RASTOČA:</b> Čas za sejanje idej. Energija raste.<br>• <b>ŠČIP (POLNA LUNA):</b> Vrhunec moči in čustvene napetosti.<br>• <b>UPADAJOČA:</b> Čas za čiščenje, razstrupljanje in opuščanje.<br><br>🔢 <b>NUMEROLOŠKA TAKTIKA (1-9):</b><br>• <b>1 - VODI:</b> Danes prevzemi pobudo.<br>• <b>2 - SODELUJ:</b> Uspeh pride skozi diplomacijo.<br>• <b>3 - USTVARJAJ:</b> Čas za komunikacijo in kreativnost.<br>• <b>4 - GRADI:</b> Danes bodi discipliniran.<br>• <b>5 - SPREMENI:</b> Pričakuj nepričakovano.<br>• <b>6 - SKRBI:</b> Osredotoči se na dom in družino.<br>• <b>7 - ANALIZIRAJ:</b> Pojdi vase, meditiraj.<br>• <b>8 - VLADAJ:</b> Čas za finance in rezultate.<br>• <b>9 - ZAKLJUČI:</b> Končaj projekte in odpusti staro.<br><br>🧬 <b>TELO:</b> Del telesa pod vplivom lune.<br>🪐 <b>VLADAR:</b> Planetarna energija dneva.<br><br><form action="https://www.paypal.com/donate" method="post" target="_top">
+<input type="hidden" name="hosted_button_id" value="X5NG6V3RM5L9E" />
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+<img alt="" border="0" src="https://www.paypal.com/en_SI/i/scr/pixel.gif" width="1" height="1" />
+</form>
+<br><button onclick="unlockPrompt()" style="width:100%;padding:12px;background:var(--gold);border:none;border-radius:15px;font-weight:bold;cursor:pointer;margin-top:10px;">✨ AKTIVIRAJ PREMIUM</button>`
+ },
     en: {
         zod: ["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"],
         bod: ["Head","Throat","Lungs","Chest","Heart","Abdomen","Kidneys","Repro","Thighs","Knees","Ankles","Feet"],

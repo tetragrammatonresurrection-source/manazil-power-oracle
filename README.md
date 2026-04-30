@@ -21,7 +21,7 @@
 
 ### 📲 Installation
 This application is a **PWA** (Progressive Web App). For the best experience, install it on your home screen:
-1. Open the [App Link]([https://github.io](https://tetragrammatonresurrection-source.github.io/manazil-power-oracle/) in Safari (iOS) or Chrome (Android).
+1. Open the [App Link] [Here](https://tetragrammatonresurrection-source.github.io/manazil-power-oracle/) in Safari (iOS) or Chrome (Android).
 2. Tap **Share** or **Options** and select **"Add to Home Screen"**.
 
 ### 🛠 Technical Excellence
@@ -49,7 +49,7 @@ This application is a **PWA** (Progressive Web App). For the best experience, in
 
 ### 📲 Namestitev
 Aplikacija je zasnovana kot **PWA** (Progressive Web App). Za najboljšo izkušnjo jo namestite na svoj telefon:
-1. Odprite [Orakelj]([https://github.io](https://tetragrammatonresurrection-source.github.io/manazil-power-oracle/) v brskalniku Safari (iOS) ali Chrome (Android).
+1. Odprite [Orakelj] [Tukaj](https://tetragrammatonresurrection-source.github.io/manazil-power-oracle/) v brskalniku Safari (iOS) ali Chrome (Android).
 2. Izberite gumb **Deli** (Share) in nato **"Dodaj na domovje"** (Add to Home Screen).
 
 ### 🛠 Tehnična dovršenost
@@ -72,3 +72,5 @@ Aplikacija je zasnovana kot **PWA** (Progressive Web App). Za najboljšo izkušn
 📩 **Contact:** [tetragrammatonresurrection.source@gmail.com](mailto:tetragrammatonresurrection.source@gmail.com)
 
 *Use wisely and in alignment with the stars. / Uporabljajte modro in v skladu z zvezdami.*
+If you find it useful, please consider a small donation. Thank you very much.🙏
+[Donate Here](https://www.paypal.com/donate/?hosted_button_id=X5NG6V3RM5L9E)

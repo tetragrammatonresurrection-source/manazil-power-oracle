@@ -69,8 +69,16 @@ Aplikacija je zasnovana kot **PWA** (Progressive Web App). Za najboljšo izkušn
 - **Design:** Karat Soft Design
 - **Heritage:** Teachings of Ibn Arabi / Descriptions via *Astro-Seek*.
 
-📩 **Contact:** [tetragrammatonresurrection.source@gmail.com](mailto:tetragrammatonresurrection.source@gmail.com)
+### 🔑 How to get your Permanent Local Key
 
-*Use wisely and in alignment with the stars. / Uporabljajte modro in v skladu z zvezdami.*
-If you find it useful, please consider a small donation. Thank you very much.🙏
-[Donate Here](https://www.paypal.com/donate/?hosted_button_id=X5NG6V3RM5L9E)
+To unlock the full potential of the Manazil Power Oracle and receive your unique local key (based on your name/identity), follow these steps:
+
+1. **Donate:** Make a voluntary donation via PayPal [Your voluntary contribution](https://www.paypal.com/donate/?hosted_button_id=X5NG6V3RM5L9E) 
+2. **Contact:**👉 [📩](mailto:tetragrammatonresurrection.source@gmail.com)
+ with:
+   - Your Donation Transaction ID.
+   - The **NAME** or **STRING** you want the key to be generated from.
+3. **Receive:** I will manually (or via my local algorithm) generate your unique key and send it back to you. This key is permanent and works offline forever.
+
+*Your contribution supports the further integration of universal keys and ancient wisdom into modern code.*
+"This software is a bridge between ancient spiritual science and modern technology. Use it with respect and intention."

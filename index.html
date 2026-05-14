@@ -27,7 +27,23 @@
         .update-btn { background: var(--gold); border: none; padding: 8px 12px; border-radius: 10px; font-weight: bold; cursor: pointer; color: #000; }
         .info-panel { text-align: center; padding: 15px; border-radius: 25px; background: rgba(0,0,0,0.5); border: 1px solid rgba(212, 175, 55, 0.15); margin-bottom: 15px; transition: opacity 0.3s ease; }
         #mPhase { font-size: 0.8rem; color: var(--gold); margin-bottom: 5px; font-weight: bold; }
-        #mSigil { font-size: 3.5rem; color: var(--gold); line-height: 1; filter: drop-shadow(0 0 8px var(--gold)); }
+       #mSigil {
+    font-size: 3rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 15px; 
+    height: 80px;
+    margin-bottom: 0px;
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); 
+}
+
+#mPhase {
+    margin-bottom: 5px;
+}
+
         #mName { font-size: 1.6rem; font-weight: 700; color: #fff; margin-top: 5px; }
         #mDivine { font-size: 1.1rem; color: #fff; margin-bottom: 10px; opacity: 0.9; }
         #mDesc { font-size: 1.3rem; font-weight: bold; color: var(--gold); margin: 15px 0; min-height: 45px; }
@@ -105,35 +121,36 @@ const i18n = {
     }
 };
 
-const mansions = [
-    {sig:"𐩿", n:"Al-Sharatain", div:"The Initiating", ang:"Geniel", el:"Fire", ty:"good", d:{sl:"Novi začetki in energija.", en:"New starts."}},
-    {sig:"𐩮", n:"Al-Butain", div:"The Most Generous", ang:"Enediel", el:"Earth", ty:"neutral", d:{sl:"Skrite stvari in bogastvo.", en:"Hidden things."}},
-    {sig:"𐩤", n:"Al-Thurayya", div:"The Wise One", ang:"Amixiel", el:"Fire", ty:"good", d:{sl:"Sreča v poslu in uspehu.", en:"Luck in business."}},
-    {sig:"𐩣", n:"Al-Debaran", div:"The Sustainer", ang:"Azariel", el:"Earth", ty:"bad", d:{sl:"Pazi na prepire.", en:"Watch for quarrels."}},
-    {sig:"𐩠", n:"Al-Haqa", div:"The Evolver", ang:"Gabriel", el:"Air", ty:"good", d:{sl:"Učenje in modrost.", en:"Wisdom."}},
-    {sig:"𐩥", n:"Al-Hana", div:"The Guardian", ang:"Dirachiel", el:"Air", ty:"good", d:{sl:"Ljubezen in mir.", en:"Love and peace."}},
-    {sig:"𐩷", n:"Al-Dhira", div:"The Reckoner", ang:"Seheliel", el:"Water", ty:"good", d:{sl:"Zaščita doma.", en:"Protection."}},
-    {sig:"𐩺", n:"Al-Nathra", div:"The Subtle", ang:"Amnediel", el:"Water", ty:"good", d:{sl:"Moč intuicije.", en:"Intuition."}},
-    {sig:"𐩰", n:"Al-Tarf", div:"The Mighty", ang:"Barbiel", el:"Fire", ty:"bad", d:{sl:"Pazi na prevare.", en:"Watch for lies."}},
-    {sig:"𐩯", n:"Al-Jabhah", div:"The All-Hearing", ang:"Ardifiel", el:"Fire", ty:"good", d:{sl:"Ugled in čast.", en:"Honor."}},
-    {sig:"𐩱", n:"Al-Zubrah", div:"The All-Aware", ang:"Zariel", el:"Fire", ty:"good", d:{sl:"Dobiček s trudom.", en:"Profit."}},
-    {sig:"𐩨", n:"Al-Sarfah", div:"The Forbearing", ang:"Alariel", el:"Earth", ty:"bad", d:{sl:"Počitek in samota.", en:"Solitude."}},
-    {sig:"𐩴", n:"Al-Awwa", div:"The Sublime", ang:"Hagiel", el:"Earth", ty:"good", d:{sl:"Umetnost in lepota.", en:"Art."}},
-    {sig:"𐩵", n:"Al-Simak", div:"The Protecting", ang:"Ataliel", el:"Earth", ty:"neutral", d:{sl:"Čiščenje energije.", en:"Clearing."}},
-    {sig:"𐩼", n:"Al-Ghafr", div:"The Strong", ang:"Iraziel", el:"Air", ty:"good", d:{sl:"Prijateljstva.", en:"Friendships."}},
-    {sig:"𐩹", n:"Al-Zubana", div:"The Subtle One", ang:"Ariel", el:"Air", ty:"bad", d:{sl:"Tehtanje odločitev.", en:"Decisions."}},
-    {sig:"𐩮", n:"Al-Iklil", div:"The Provider", ang:"Tagriel", el:"Water", ty:"good", d:{sl:"Premagovanje ovir.", en:"Overcoming."}},
-    {sig:"𐩤", n:"Al-Kalb", div:"The Guardian", ang:"Alheniel", el:"Water", ty:"bad", d:{sl:"Denarna previdnost.", en:"Money caution."}},
-    {sig:"𐩣", n:"Al-Shaula", div:"The Enricher", ang:"Amnixiel", el:"Fire", ty:"bad", d:{sl:"Opustitev starega.", en:"Letting go."}},
-    {sig:"𐩠", n:"Al-Na'am", div:"The Opener", ang:"Kyriel", el:"Fire", ty:"good", d:{sl:"Uspeh in darila.", en:"Success."}},
-    {sig:"𐩥", n:"Al-Baldah", div:"The King", ang:"Bethnael", el:"Earth", ty:"neutral", d:{sl:"Temelji.", en:"Foundations."}},
-    {sig:"𐩷", n:"S. al-Dhabih", div:"The Capable", ang:"Geliel", el:"Earth", ty:"bad", d:{sl:"Sprememba.", en:"Change."}},
-    {sig:"𐩺", n:"S. al-Bula", div:"The Forgiver", ang:"Requiel", el:"Air", ty:"neutral", d:{sl:"Zdravje.", en:"Health."}},
-    {sig:"𐩰", n:"S. al-Su'ud", div:"The Grateful", ang:"Abrinael", el:"Air", ty:"good", d:{sl:"Velika sreča.", en:"Luck."}},
-    {sig:"𐩯", n:"S. al-Akhbiya", div:"The Self-Sufficient", ang:"Aziel", el:"Air", ty:"bad", d:{sl:"Skrivnosti.", en:"Secrets."}},
-    {sig:"𐩱", n:"A. al-Awwal", div:"The Powerful", ang:"Tagriel", el:"Water", ty:"good", d:{sl:"Mir.", en:"Peace."}},
-    {sig:"𐩨", n:"A. al-Thani", div:"The Giver", ang:"Abriel", el:"Water", ty:"neutral", d:{sl:"Družina.", en:"Family."}},
-    {sig:"𐩴", n:"Al-Risha", div:"The First", ang:"Amnixiel", el:"Water", ty:"good", d:{sl:"Konec cikla.", en:"End."}}
+ const mansions = [
+  {num: 1, sig: "أ", n: "Al-Sharatain", div: "The Initiating", ang: "Geniel", el: "Fire", ty: "good", d: {sl: "Novi začetki, energija in odločnost.", en: "New starts and energy."}},
+  {num: 2, sig: "ب", n: "Al-Butain", div: "The Most Generous", ang: "Enediel", el: "Earth", ty: "neutral", d: {sl: "Iskanje skritih stvari in kopičenje bogastva.", en: "Hidden things."}},
+  {num: 3, sig: "ج", n: "Al-Thurayya", div: "The Wise One", ang: "Amixiel", el: "Fire", ty: "good", d: {sl: "Sreča v znanosti, poslu in družinskem življenju.", en: "Luck in business."}},
+  {num: 4, sig: "د", n: "Al-Dabaran", div: "The Sustainer", ang: "Azariel", el: "Earth", ty: "bad", d: {sl: "Previdnost pri odnosih in izogibanje prepirom.", en: "Watch for quarrels."}},
+  {num: 5, sig: "هـ", n: "Al-Haqa", div: "The Evolver", ang: "Gabiel", el: "Air", ty: "good", d: {sl: "Učenje, duhovna rast in umetniško navdihnjenje.", en: "Wisdom."}},
+  {num: 6, sig: "و", n: "Al-Hana", div: "The Guardian", ang: "Dirachiel", el: "Air", ty: "bad", d: {sl: "Pazite na zdravje in nepremišljene odločitve.", en: "Health caution."}},
+  {num: 7, sig: "ز", n: "Al-Dhira", div: "The Reckoner", ang: "Scheliel", el: "Water", ty: "good", d: {sl: "Zaščita doma, družine in pridobivanje naklonjenosti.", en: "Protection."}},
+  {num: 8, sig: "ح", n: "Al-Nathra", div: "The Subtle", ang: "Amnediel", el: "Water", ty: "good", d: {sl: "Krepitev intuicije, ljubezni in prijateljstev.", en: "Intuition."}},
+  {num: 9, sig: "ط", n: "Al-Tarf", div: "The Mighty", ang: "Barbiel", el: "Fire", ty: "bad", d: {sl: "Možnost prevare ali izgube moči.", en: "Watch for lies."}},
+  {num: 10, sig: "ي", n: "Al-Jabhah", div: "The All-Hearing", ang: "Ardesiel", el: "Fire", ty: "good", d: {sl: "Napredovanje v karieri, ugled in čast.", en: "Honor."}},
+  {num: 11, sig: "ك", n: "Al-Zubra", div: "The All-Aware", ang: "Neciel", el: "Fire", ty: "good", d: {sl: "Uspeh pri delu in pridobivanje sredstev.", en: "Profit."}},
+  {num: 12, sig: "ل", n: "Al-Sarfah", div: "The Forbearing", ang: "Abdizuel", el: "Earth", ty: "bad", d: {sl: "Umiritev strasti, introspekcija in samota.", en: "Solitude."}},
+  {num: 13, sig: "م", n: "Al-Awwa", div: "The Sublime", ang: "Jazeriel", el: "Earth", ty: "good", d: {sl: "Umetnost, lepota in ugodne pogodbe.", en: "Art."}},
+  {num: 14, sig: "ن", n: "Al-Simak", div: "The Protecting", ang: "Ergediel", el: "Earth", ty: "neutral", d: {sl: "Zdravje in čiščenje zastale energije.", en: "Clearing."}},
+  {num: 15, sig: "س", n: "Al-Ghafr", div: "The Strong", ang: "Ataliel", el: "Air", ty: "good", d: {sl: "Prijateljstva, povezave in iskanje rešitev.", en: "Friendships."}},
+  {num: 16, sig: "ع", n: "Al-Zubana", div: "The Subtle One", ang: "Azeruel", el: "Air", ty: "bad", d: {sl: "Ovire v trgovini ali partnerskih odnosih.", en: "Decisions."}},
+  {num: 17, sig: "ف", n: "Al-Iklil", div: "The Provider", ang: "Adriel", el: "Water", ty: "good", d: {sl: "Premagovanje ovir in trdnost v težavah.", en: "Overcoming."}},
+  {num: 18, sig: "ص", n: "Al-Qalb", div: "The Guardian", ang: "Egibiel", el: "Water", ty: "bad", d: {sl: "Varovanje pred spletkami in ohranjanje moči.", en: "Power."}},
+  {num: 19, sig: "ق", n: "Al-Shaula", div: "The Enricher", ang: "Amutiel", el: "Fire", ty: "bad", d: {sl: "Opustitev starega in radikalne spremembe.", en: "Letting go."}},
+  {num: 20, sig: "ر", n: "Al-Na'am", div: "The Opener", ang: "Kyriel", el: "Fire", ty: "good", d: {sl: "Doseganje ciljev in nepričakovana darila.", en: "Success."}},
+  {num: 21, sig: "ش", n: "Al-Baldah", div: "The King", ang: "Bethnael", el: "Earth", ty: "neutral", d: {sl: "Postavljanje temeljev in dolgoročni načrti.", en: "Foundations."}},
+  {num: 22, sig: "ت", n: "S. al-Dhabih", div: "The Capable", ang: "Geliel", el: "Earth", ty: "bad", d: {sl: "Nujne spremembe in hitra prilagoditev.", en: "Change."}},
+  {num: 23, sig: "ث", n: "S. al-Bula", div: "The Forgiver", ang: "Requiel", el: "Air", ty: "neutral", d: {sl: "Zdravje, okrevanje in duševni mir.", en: "Health."}},
+  {num: 24, sig: "خ", n: "S. al-Su'ud", div: "The Grateful", ang: "Abrinael", el: "Air", ty: "good", d: {sl: "Velika sreča in blagoslov pri delu.", en: "Luck."}},
+  {num: 25, sig: "ذ", n: "S. al-Akhbiya", div: "The Self-Sufficient", ang: "Aziel", el: "Air", ty: "bad", d: {sl: "Odkrivanje skritih resnic in previdnost.", en: "Secrets."}},
+  {num: 26, sig: "ض", n: "Al-Fargh al-Mukdim", div: "The Powerful", ang: "Tagriel", el: "Water", ty: "good", d: {sl: "Mir, sloga v odnosih in uresničitev idej.", en: "Peace."}},
+  {num: 27, sig: "ظ", n: "Al-Fargh al-Thani", div: "The Giver", ang: "Abriel", el: "Water", ty: "neutral", d: {sl: "Blaginja za družino in povečanje pridelka.", en: "Family."}},
+  {num: 28, sig: "غ", n: "Al-Risha", div: "The First", ang: "Amnixiel", el: "Water", ty: "good", d: {sl: "Uspešen zaključek cikla in varno potovanje.", en: "End."}}
+
 ];
 function generateKey(n){let h=0;n=n.toUpperCase().trim();for(let i=0;i<n.length;i++)h+=n.charCodeAt(i);return (h*7).toString();}
 function unlockPrompt(){const n=prompt("Ime (npr. MATEJ):");if(!n)return;const k=prompt("Premium ključ:");if(k===generateKey(n)){localStorage.setItem('manazil_premium','true');alert("Odklenjeno!");location.reload();}else alert("Napačen ključ.");}
